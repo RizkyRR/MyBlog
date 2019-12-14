@@ -9,9 +9,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><?php echo $title; ?> - MyBlog</title>
+  <title><?php echo $title; ?> - <?php echo $profile['name'] ?></title>
 
-  <link rel="shortcut icon" type="image/png" href="<?= base_url(); ?>back-assets/img/logo/warehouse.png">
+  <link rel="shortcut icon" type="image/png" href="<?= base_url(); ?>back-assets/img/logo/blogging.png">
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url(); ?>back-assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -21,7 +21,8 @@
   <link href="<?php echo base_url(); ?>back-assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
 
-
+  <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+  <link href="<?php echo base_url(); ?>back-assets/css/select2-bootstrap.min.css" rel="stylesheet">
 
   <!-- Bootstrap core JavaScript -->
   <script src="<?php echo base_url(); ?>back-assets/vendor/jquery/jquery.min.js"></script>

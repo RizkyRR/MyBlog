@@ -66,6 +66,14 @@
       </script>
 
       <script>
+        ClassicEditor
+          .create(document.querySelector('#ckeditor'))
+          .catch(error => {
+            console.error(error);
+          });
+      </script>
+
+      <script>
         $('.button-delete').on('click', function(e) {
 
           e.preventDefault();
@@ -114,5 +122,6 @@
       </script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
       <script src="<?php echo base_url(); ?>back-assets/js/detail-time-order.js"></script>
+      <script src="<?php echo base_url(); ?>back-assets/js/select2.full.min.js"></script>
 
       </html>

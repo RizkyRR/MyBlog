@@ -32,7 +32,7 @@
       <div class="text-center mt-5">
         <div class="error mx-auto" data-text="404">404</div>
         <p class="lead text-gray-800 mb-5">Page Not Found</p>
-        <a href="<?php echo base_url(); ?>user">&larr; Return to User Menu</a>
+        <a href="<?php echo base_url(); ?>admin">&larr; Return to Home</a>
       </div>
 
     </div>

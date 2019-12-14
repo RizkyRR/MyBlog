@@ -23,11 +23,6 @@ class Admin extends CI_Controller
     // GET USER COUNT
 
     // GET ONLINE USER 
-
-    $this->load->view('back-templates/header', $info);
-    $this->load->view('back-templates/sidebar', $info);
-    $this->load->view('back-templates/topbar', $info);
-    $this->load->view('admins/index', $info);
-    $this->load->view('back-templates/footer');
+    renderTemplate('admins/index', $info);
   }
 }

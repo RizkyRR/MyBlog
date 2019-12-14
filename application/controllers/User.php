@@ -18,11 +18,7 @@ class User extends CI_Controller
     $info['title']     = 'User Page';
     $info['user']    = $this->Auth_model->getUserSession();
 
-    $this->load->view('back-templates/header', $info);
-    $this->load->view('back-templates/sidebar', $info);
-    $this->load->view('back-templates/topbar', $info);
-    $this->load->view('users/index', $info);
-    $this->load->view('back-templates/footer');
+    renderTemplate('users/index', $info);
   }
 
   public function edit()
@@ -58,11 +54,7 @@ class User extends CI_Controller
     ];
 
     if ($this->form_validation->run() == FALSE) {
-      $this->load->view('back-templates/header', $info);
-      $this->load->view('back-templates/sidebar', $info);
-      $this->load->view('back-templates/topbar', $info);
-      $this->load->view('users/edit-user', $info);
-      $this->load->view('back-templates/footer');
+      renderTemplate('users/edit-user', $info);
     } else {
       $this->User_model->updateUser($data);
       $this->session->set_flashdata('success', 'Updated !');
@@ -80,11 +72,7 @@ class User extends CI_Controller
     $this->form_validation->set_rules('repass', 'retype new password', 'trim|required|min_length[6]|matches[newpass]');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->load->view('back-templates/header', $info);
-      $this->load->view('back-templates/sidebar', $info);
-      $this->load->view('back-templates/topbar', $info);
-      $this->load->view('users/changepassword', $info);
-      $this->load->view('back-templates/footer');
+      renderTemplate('users/changepassword', $info);
     } else {
       $old_pass     = $this->security->xss_clean(html_escape($this->input->post('oldpass', true)));
       $newpass    = $this->security->xss_clean(html_escape($this->input->post('newpass', true)));
