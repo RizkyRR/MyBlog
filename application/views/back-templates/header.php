@@ -21,7 +21,7 @@
   <link href="<?php echo base_url(); ?>back-assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
 
-  <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
   <link href="<?php echo base_url(); ?>back-assets/css/select2-bootstrap.min.css" rel="stylesheet">
 
   <!-- Bootstrap core JavaScript -->

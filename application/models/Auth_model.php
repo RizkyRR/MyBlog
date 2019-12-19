@@ -9,6 +9,13 @@ class Auth_model extends CI_Model
     parent::__construct();
   }
 
+  public function getUser()
+  {
+    $this->db->order_by('name', 'ASC');
+    $query = $this->db->get('user');
+    return $query->result_array();
+  }
+
   public function checkUser($data)
   {
     return $this->db->get_where('user', ['email' => $data])->row_array();

@@ -92,7 +92,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'file', 'form', 'html', 'security', 'authAccess', 'templatingBackTemplate', 'cookie', 'string');
+$autoload['helper'] = array('url', 'file', 'form', 'html', 'security', 'authAccess', 'templatingBackTemplate', 'slug', 'cookie', 'string');
 
 /*
 | -------------------------------------------------------------------
@@ -135,4 +135,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Admin_model', 'Auth_model', 'User_model', 'Menu_model', 'Profile_model');
+$autoload['model'] = array('Admin_model', 'Auth_model', 'User_model', 'Menu_model', 'Profile_model', 'Category_model', 'Post_model');

@@ -66,11 +66,18 @@
       </script>
 
       <script>
-        ClassicEditor
-          .create(document.querySelector('#ckeditor'))
-          .catch(error => {
-            console.error(error);
-          });
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+          var fileName = $(this).val().split("\\").pop();
+          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+      </script>
+
+      <script>
+        CKEDITOR.replace('textckeditor', {
+          height: 400,
+          baseFloatZIndex: 10005
+        });
       </script>
 
       <script>
@@ -101,15 +108,20 @@
         })
       </script> -->
 
-      <script>
-        //untuk image file reader
-        $('.custom-file-input').on('change', function() {
-          let fileName = $(this).val().split('\\').pop();
-          $(this).next('.custom-file-label').addClass("selected").html(fileName);
-        });
-      </script>
 
+      <!-- <script>
+        function readURL(input) {
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function(e) {
+              $('#prev_foto').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+      </script> -->
 
       <script>
         $(document).ready(function() {

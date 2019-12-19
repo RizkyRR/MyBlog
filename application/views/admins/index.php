@@ -16,7 +16,7 @@
               </div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              <i class="fas fa-vote-yea fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
               </div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+              <i class="fas fa-mail-bulk fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
               <div class="h5 mb-0 font-weight-bold text-gray-800">Sample</div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-users fa-2x text-gray-300"></i>
+              <i class="fas fa-comments fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>

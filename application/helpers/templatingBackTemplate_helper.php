@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 function renderTemplate($page = null, $data = array())
 {
   $ci = &get_instance();
