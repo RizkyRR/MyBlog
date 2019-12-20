@@ -79,7 +79,7 @@ class Post extends CI_Controller
 
     // PASSING DATA
     renderTemplate('posts/index', $info);
-    renderTemplate('posts/detail-post', $info);
+    $this->load->view('posts/detail-post', $info);
   }
 
   private function _uploadImage()
