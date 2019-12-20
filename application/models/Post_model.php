@@ -7,7 +7,7 @@ class Post_model extends CI_Model
 
   public function getAllPost($limit, $offset, $keyword)
   {
-    $this->db->select('*');
+    $this->db->select('*, blog.slug as b_slug');
     $this->db->from('blog');
     $this->db->join('category', 'category.category_id = blog.category_id');
 

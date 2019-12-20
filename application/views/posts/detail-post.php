@@ -18,7 +18,7 @@
 
           <div class="form-group">
             <label for="">Slug</label>
-            <input type="text" class="form-control" readonly value="<?= $val['slug']; ?>">
+            <input type="text" class="form-control" readonly value="<?= $val['b_slug']; ?>">
           </div>
 
           <div class="form-group">
