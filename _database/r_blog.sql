@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2019 at 09:58 AM
+-- Generation Time: Dec 21, 2019 at 03:34 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -49,7 +49,7 @@ CREATE TABLE `blog` (
 --
 
 INSERT INTO `blog` (`blog_id`, `user_id`, `category_id`, `title`, `slug`, `picture`, `short_content`, `content`, `created_at`, `updated_at`, `pending`, `public`, `active`) VALUES
-(1558381220, 'Rizky Rahmadianto', 2, 'Applikasi Keuangan Sederhana', 'applikasi-keuangan-sederhana', 'content_1576740133.png', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar mattis nunc sed blandit libero. Adipiscing at in tellus integer feugiat scelerisque. Faucibus scelerisque eleifend donec pretium vulputate sapien. Pharetra massa massa ultricies mi. Lacus sed turpis tincidunt id. Pulvinar mattis nunc sed blandit libero volutpat sed cras. Adipiscing tristique risus nec feugiat in fermentum posuere. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Vitae et leo duis ut diam quam nulla. Aliquet sagittis id consectetur purus ut faucibus.</p>\r\n\r\n<p xss=removed>Auctor neque vitae tempus quam pellentesque nec nam aliquam. Tincidunt arcu non sodales neque sodales ut. Ac placerat vestibulum lectus mauris. Adipiscing elit duis tristique sollicitudin. Tempor id eu nisl nunc mi ipsum faucibus vitae. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Aliquet risus feugiat in ante metus dictum at tempor commodo. In pellentesque massa placerat duis ultricies lacus sed. Sed risus pretium quam vulputate dignissim suspendisse in est. Nam at lectus urna duis convallis convallis tellus. Quis ipsum suspendisse ultrices gravida dictum. Urna et pharetra pharetra massa. Dolor sit amet consectetur adipiscing.</p>\r\n', '2019-12-19 07:22:13', '0000-00-00 00:00:00', 0, 1, 'Active');
+(1, 'Rizky Rahmadianto', 2, 'Applikasi Keuangan Sederhana', 'applikasi-keuangan-sederhana', 'content_1576740133.png', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar mattis nunc sed blandit libero. Adipiscing at in tellus integer feugiat scelerisque. Faucibus scelerisque eleifend donec pretium vulputate sapien. Pharetra massa massa ultricies mi. Lacus sed turpis tincidunt id. Pulvinar mattis nunc sed blandit libero volutpat sed cras. Adipiscing tristique risus nec feugiat in fermentum posuere. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Vitae et leo duis ut diam quam nulla. Aliquet sagittis id consectetur purus ut faucibus.</p>\r\n\r\n<p xss=removed>Auctor neque vitae tempus quam pellentesque nec nam aliquam. Tincidunt arcu non sodales neque sodales ut. Ac placerat vestibulum lectus mauris. Adipiscing elit duis tristique sollicitudin. Tempor id eu nisl nunc mi ipsum faucibus vitae. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Aliquet risus feugiat in ante metus dictum at tempor commodo. In pellentesque massa placerat duis ultricies lacus sed. Sed risus pretium quam vulputate dignissim suspendisse in est. Nam at lectus urna duis convallis convallis tellus. Quis ipsum suspendisse ultrices gravida dictum. Urna et pharetra pharetra massa. Dolor sit amet consectetur adipiscing.</p>\r\n', '2019-12-20 10:24:52', '0000-00-00 00:00:00', 0, 1, 'Active');
 
 -- --------------------------------------------------------
 
@@ -141,10 +141,19 @@ INSERT INTO `category_blog` (`category_blog_id`, `category_id`, `blog_id`) VALUE
 
 CREATE TABLE `comment` (
   `comment_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `blog_id` int(11) NOT NULL,
+  `username` varchar(64) NOT NULL,
   `datetime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `content` longtext NOT NULL
+  `content` longtext NOT NULL,
+  `is_hide` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`comment_id`, `blog_id`, `username`, `datetime`, `content`, `is_hide`) VALUES
+(1, 1, 'Agus Cebong', '2019-12-21 11:22:09', 'Ini kritik yang sangat membangun', 0);
 
 -- --------------------------------------------------------
 
@@ -216,8 +225,16 @@ CREATE TABLE `message` (
   `email` varchar(32) NOT NULL,
   `phone` varchar(16) NOT NULL,
   `message_content` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `is_reply` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `name`, `email`, `phone`, `message_content`, `created_at`, `is_reply`) VALUES
+(1, 'Rizky Rahmadianto', 'rahmadianto018@gmail.com', '08111112233', 'Maaf mengganggu jika tidak apa ya sudah', '2019-12-21 14:30:08', 0);
 
 -- --------------------------------------------------------
 
@@ -322,7 +339,8 @@ ALTER TABLE `category_blog`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`comment_id`),
-  ADD KEY `user_id` (`user_id`,`datetime`);
+  ADD KEY `user_id` (`username`,`datetime`),
+  ADD KEY `blog_id` (`blog_id`);
 
 --
 -- Indexes for table `comment_blog`
@@ -405,7 +423,7 @@ ALTER TABLE `category_blog`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `comment_blog`
@@ -429,7 +447,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sub_menu`

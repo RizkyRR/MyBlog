@@ -78,8 +78,7 @@ class Post extends CI_Controller
     $info['pagination'] = $this->pagination->create_links();
 
     // PASSING DATA
-    renderTemplate('posts/index', $info);
-    $this->load->view('posts/detail-post', $info);
+    renderTemplateDetail('posts/index', 'posts/detail-post', $info);
   }
 
   private function _uploadImage()

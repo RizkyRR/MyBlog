@@ -51,12 +51,12 @@
 
           <div class="form-group">
             <label for="">Created At</label>
-            <input type="text" class="form-control" readonly value="<?= date('d M Y', strtotime($val['created_at'])); ?>">
+            <input type="text" class="form-control" readonly value="<?= date('d M Y H:i:s', strtotime($val['created_at'])); ?>">
           </div>
 
           <div class="form-group">
             <label for="">Updated At</label>
-            <input type="text" class="form-control" readonly value="<?= date('d M Y', strtotime($val['updated_at'])); ?>">
+            <input type="text" class="form-control" readonly value="<?= date('d M Y H:i:s', strtotime($val['updated_at'])); ?>">
           </div>
 
           <div class="form-group">
