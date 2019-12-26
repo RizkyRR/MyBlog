@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2019 at 03:34 PM
+-- Generation Time: Dec 26, 2019 at 05:40 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -49,7 +49,30 @@ CREATE TABLE `blog` (
 --
 
 INSERT INTO `blog` (`blog_id`, `user_id`, `category_id`, `title`, `slug`, `picture`, `short_content`, `content`, `created_at`, `updated_at`, `pending`, `public`, `active`) VALUES
-(1, 'Rizky Rahmadianto', 2, 'Applikasi Keuangan Sederhana', 'applikasi-keuangan-sederhana', 'content_1576740133.png', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar mattis nunc sed blandit libero. Adipiscing at in tellus integer feugiat scelerisque. Faucibus scelerisque eleifend donec pretium vulputate sapien. Pharetra massa massa ultricies mi. Lacus sed turpis tincidunt id. Pulvinar mattis nunc sed blandit libero volutpat sed cras. Adipiscing tristique risus nec feugiat in fermentum posuere. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Vitae et leo duis ut diam quam nulla. Aliquet sagittis id consectetur purus ut faucibus.</p>\r\n\r\n<p xss=removed>Auctor neque vitae tempus quam pellentesque nec nam aliquam. Tincidunt arcu non sodales neque sodales ut. Ac placerat vestibulum lectus mauris. Adipiscing elit duis tristique sollicitudin. Tempor id eu nisl nunc mi ipsum faucibus vitae. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Aliquet risus feugiat in ante metus dictum at tempor commodo. In pellentesque massa placerat duis ultricies lacus sed. Sed risus pretium quam vulputate dignissim suspendisse in est. Nam at lectus urna duis convallis convallis tellus. Quis ipsum suspendisse ultrices gravida dictum. Urna et pharetra pharetra massa. Dolor sit amet consectetur adipiscing.</p>\r\n', '2019-12-20 10:24:52', '0000-00-00 00:00:00', 0, 1, 'Active');
+(1, 'Rizky Rahmadianto', 2, 'Applikasi Keuangan Sederhana', 'applikasi-keuangan-sederhana', 'content_1576740133.png', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar mattis nunc sed blandit libero. Adipiscing at in tellus integer feugiat scelerisque. Faucibus scelerisque eleifend donec pretium vulputate sapien. Pharetra massa massa ultricies mi. Lacus sed turpis tincidunt id. Pulvinar mattis nunc sed blandit libero volutpat sed cras. Adipiscing tristique risus nec feugiat in fermentum posuere. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Vitae et leo duis ut diam quam nulla. Aliquet sagittis id consectetur purus ut faucibus.</p>\r\n\r\n<p xss=removed>Auctor neque vitae tempus quam pellentesque nec nam aliquam. Tincidunt arcu non sodales neque sodales ut. Ac placerat vestibulum lectus mauris. Adipiscing elit duis tristique sollicitudin. Tempor id eu nisl nunc mi ipsum faucibus vitae. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Aliquet risus feugiat in ante metus dictum at tempor commodo. In pellentesque massa placerat duis ultricies lacus sed. Sed risus pretium quam vulputate dignissim suspendisse in est. Nam at lectus urna duis convallis convallis tellus. Quis ipsum suspendisse ultrices gravida dictum. Urna et pharetra pharetra massa. Dolor sit amet consectetur adipiscing.</p>\r\n', '2019-12-20 10:24:52', '0000-00-00 00:00:00', 0, 1, 'Active'),
+(1558381221, 'Rizky Rahmadianto', 2, 'asdasd', 'asdasd', 'content_1577279481.png', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Semper quis lectus nulla at volutpat diam ut. Varius sit amet mattis vulputate enim nulla aliquet porttitor lacus. Id diam vel quam elementum pulvinar etiam non quam. Purus sit amet luctus venenatis. Nullam ac tortor vitae purus. Adipiscing at in tellus integer feugiat scelerisque varius morbi. Ut porttitor leo a diam sollicitudin tempor. Vulputate ut pharetra sit amet aliquam id diam maecenas. Nunc faucibus a pellentesque sit amet porttitor eget. Sit amet consectetur adipiscing elit ut aliquam purus sit. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Convallis tellus id interdum velit laoreet. Tempus urna et pharetra pharetra massa. Id aliquet risus feugiat in.</p>\r\n', '2019-12-25 13:11:21', '0000-00-00 00:00:00', 0, 1, 'Active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_image`
+--
+
+CREATE TABLE `blog_image` (
+  `id` int(11) NOT NULL,
+  `blog_profile_id` int(11) NOT NULL,
+  `image_1` varchar(256) NOT NULL,
+  `image_2` varchar(256) NOT NULL,
+  `image_3` varchar(256) NOT NULL,
+  `image_4` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `blog_image`
+--
+
+INSERT INTO `blog_image` (`id`, `blog_profile_id`, `image_1`, `image_2`, `image_3`, `image_4`) VALUES
+(1, 1, 'home-bg.jpg', 'about-bg.jpg', 'post-bg.jpg', 'contact-bg.jpg');
 
 -- --------------------------------------------------------
 
@@ -63,15 +86,16 @@ CREATE TABLE `blog_profile` (
   `email` varchar(64) NOT NULL,
   `phone` varchar(64) NOT NULL,
   `about` text NOT NULL,
-  `icon` varchar(256) NOT NULL
+  `icon` varchar(256) NOT NULL,
+  `visitor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `blog_profile`
 --
 
-INSERT INTO `blog_profile` (`id`, `name`, `email`, `phone`, `about`, `icon`) VALUES
-(1, 'MyBlog', 'rahmadianto018@gmail.com', '081111111111', '&lt;p&gt;&lt;strong&gt;Lorem &lt;/strong&gt;ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!&lt;/p&gt;', 'fas fa-robot');
+INSERT INTO `blog_profile` (`id`, `name`, `email`, `phone`, `about`, `icon`, `visitor`) VALUES
+(1, 'MyBlog', 'rahmadianto018@gmail.com', '081111111111', '&lt;p&gt;&lt;strong&gt;Lorem &lt;/strong&gt;ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!&lt;/p&gt;', 'fas fa-robot', 0);
 
 -- --------------------------------------------------------
 
@@ -145,15 +169,16 @@ CREATE TABLE `comment` (
   `username` varchar(64) NOT NULL,
   `datetime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `content` longtext NOT NULL,
-  `is_hide` tinyint(1) NOT NULL
+  `is_hide` tinyint(1) NOT NULL,
+  `is_reply` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `comment`
 --
 
-INSERT INTO `comment` (`comment_id`, `blog_id`, `username`, `datetime`, `content`, `is_hide`) VALUES
-(1, 1, 'Agus Cebong', '2019-12-21 11:22:09', 'Ini kritik yang sangat membangun', 0);
+INSERT INTO `comment` (`comment_id`, `blog_id`, `username`, `datetime`, `content`, `is_hide`, `is_reply`) VALUES
+(1, 1, 'Agus Cebong', '2019-12-21 11:22:09', 'Ini kritik yang sangat membangun', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -209,9 +234,10 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`id`, `menu`) VALUES
 (1, 'Admin'),
-(6, 'Extras'),
+(6, 'Comment'),
 (2, 'Master'),
-(3, 'Menu');
+(3, 'Menu'),
+(7, 'Message');
 
 -- --------------------------------------------------------
 
@@ -234,7 +260,28 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`id`, `name`, `email`, `phone`, `message_content`, `created_at`, `is_reply`) VALUES
-(1, 'Rizky Rahmadianto', 'rahmadianto018@gmail.com', '08111112233', 'Maaf mengganggu jika tidak apa ya sudah', '2019-12-21 14:30:08', 0);
+(1, 'Rizky Rahmadianto', 'rahmadianto018@gmail.com', '08111112233', 'Maaf mengganggu jika tidak apa ya sudah', '2019-12-26 12:01:09', 0),
+(2, 'Rahmad Rizky', '111201408226@mhs.dinus.ac.id', '089321456978', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Neque ornare aenean euismod elementum nisi quis eleifend. Fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque. Enim sed faucibus turpis in eu mi. Sit amet tellus cras adipiscing. Maecenas pharetra convallis posuere morbi leo. Eros donec ac odio tempor orci dapibus ultrices. Cursus mattis molestie a iaculis at erat. Nunc pulvinar sapien et ligula ullamcorper malesuada proin libero. Neque ornare aenean euismod elementum nisi. Faucibus nisl tincidunt eget nullam non. Eu lobortis elementum nibh tellus molestie nunc non blandit. Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra. Ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim. Eget aliquet nibh praesent tristique. Orci sagittis eu volutpat odio facilisis. Ut enim blandit volutpat maecenas volutpat blandit.', '2019-12-26 12:30:29', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message_sent`
+--
+
+CREATE TABLE `message_sent` (
+  `id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `message_reply` longtext NOT NULL,
+  `reply_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `message_sent`
+--
+
+INSERT INTO `message_sent` (`id`, `message_id`, `message_reply`, `reply_at`) VALUES
+(7, 2, '<p>Baik terima kasih !</p>\r\n', '2019-12-26 12:30:29');
 
 -- --------------------------------------------------------
 
@@ -264,7 +311,9 @@ INSERT INTO `sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active`, `l
 (5, 2, 'Category', 'category', 'fas fa-tags', 1, 'category'),
 (6, 2, 'Post', 'post', 'fas fa-blog', 1, 'post'),
 (7, 6, 'Comment Section', 'comment', 'fas fa-comments', 1, 'comment'),
-(8, 6, 'Message', 'message', 'fas fa-envelope', 1, 'message');
+(8, 7, 'Message', 'message', 'fas fa-envelope', 1, 'message'),
+(9, 6, 'Comment Reply', 'comment_reply', 'fas fa-reply', 1, 'comment_reply'),
+(10, 7, 'Message Sent', 'message_sent', 'fas fa-reply', 1, 'message_sent');
 
 -- --------------------------------------------------------
 
@@ -313,6 +362,12 @@ ALTER TABLE `blog`
   ADD KEY `title` (`title`),
   ADD KEY `slug` (`slug`,`picture`,`created_at`,`updated_at`,`pending`,`public`,`active`),
   ADD KEY `category_id` (`category_id`);
+
+--
+-- Indexes for table `blog_image`
+--
+ALTER TABLE `blog_image`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `blog_profile`
@@ -370,6 +425,12 @@ ALTER TABLE `message`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `message_sent`
+--
+ALTER TABLE `message_sent`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sub_menu`
 --
 ALTER TABLE `sub_menu`
@@ -399,7 +460,13 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `blog`
 --
 ALTER TABLE `blog`
-  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1558381221;
+  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1558381222;
+
+--
+-- AUTO_INCREMENT for table `blog_image`
+--
+ALTER TABLE `blog_image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `blog_profile`
@@ -441,19 +508,25 @@ ALTER TABLE `link_blog_profile`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `message_sent`
+--
+ALTER TABLE `message_sent`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sub_menu`
 --
 ALTER TABLE `sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user`
