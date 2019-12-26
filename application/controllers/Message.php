@@ -31,6 +31,9 @@ class Message extends CI_Controller
     $this->db->or_like('name', $info['keyword']);
     $this->db->or_like('email', $info['keyword']);
     $this->db->or_like('phone', $info['keyword']);
+
+    // $this->db->where('is_reply', 0);
+
     $this->db->from('message');
 
     // PAGINATION
@@ -78,9 +81,88 @@ class Message extends CI_Controller
     renderTemplate('messages/index', $info);
   }
 
+  private function _sendEmail($replyTo, $message)
+  {
+    // https://stackoverflow.com/questions/10663277/how-to-send-an-email-with-content-from-a-view-in-codeigniter
+    // https://stackoverflow.com/questions/16631740/sending-email-using-templates-in-codeigniter
+    // https://stackoverflow.com/questions/9095528/send-html-mail-using-codeigniter
+    // https://stackoverflow.com/questions/16558402/using-a-html-mail-template-with-codeigniter
+    // https://stackoverflow.com/questions/16297887/codeigniter-how-to-html-template-for-emails
+    // http://manojpatial.com/send-email-using-html-email-template-in-codeigniter/
+
+    // https://mdbootstrap.com/plugins/jquery/email-templates/
+
+    // https://www.rumahweb.com/journal/cara-setting-smtp-codeigniter/
+    $config = [
+      'protocol'   => 'smtp',
+      'smtp_host'  => 'ssl://mail.rizkyrahmadianto.com',
+      'smtp_user'  => 'admin@rizkyrahmadianto.com',
+      'smtp_pass'  => 'a3kPcWshdjSRDFH',
+      'smtp_port'  => 465,
+      'mailtype'  => 'html',
+      'charset'  => 'utf-8',
+      'newline'  => "\r\n",
+      'wordwrap' => TRUE
+    ];
+
+    $this->load->library('email', $config);
+    $this->email->initialize($config);
+
+    // Email dan nama pengirim
+    $this->email->from('admin@rizkyrahmadianto.com', 'rizkyrahmadianto.com');
+
+    // Email penerima
+    $this->email->to($replyTo); // Ganti dengan email tujuan
+
+    // Lampiran email, isi dengan url/path file
+    // $this->email->attach('https://masrud.com/content/images/20181215150137-codeigniter-smtp-gmail.png');
+
+    // Subject email
+    $this->email->subject('Message Reply Order');
+
+    // Isi email
+    $this->email->message($message);
+
+    //Send mail
+    if ($this->email->send()) {
+      $this->session->set_flashdata("success", "Congragulation Email Send Successfully.");
+    } else {
+      $this->session->set_flashdata("error", "You have encountered an error");
+      redirect('message', 'refresh');
+    }
+  }
+
   public function reply($id)
   {
-    # code...
+    $info['title'] = 'Reply Message';
+    $info['user'] = $this->Auth_model->getUserSession();
+    $info['data'] = $this->Message_model->getMessageById($id);
+
+    $getId = $info['data'];
+
+    $this->form_validation->set_rules('message_reply', 'message', 'trim|required|min_length[3]');
+
+    $file = [
+      'message_id' => $this->input->post('id', true),
+      'message_reply' => $this->input->post('message_reply', true)
+    ];
+
+    if ($this->form_validation->run() == false) {
+      renderTemplate('messages/message-reply', $info);
+    } else {
+      $this->_sendEmail($this->input->post('email'), $this->input->post('message_reply'));
+
+      $this->Message_model->send($file);
+
+      $isreply = [
+        'is_reply' => 1
+      ];
+
+      $this->Message_model->update($id, $isreply);
+
+      $this->session->set_flashdata('success', 'Message from ' . $getId['email'] . ' has been sent !');
+      redirect('message', 'refresh');
+    }
   }
 
   public function delete($id)
@@ -88,7 +170,7 @@ class Message extends CI_Controller
     $getId = $this->Message_model->getMessageById($id);
 
     $this->Message_model->delete($id);
-    $this->session->set_flashdata('success', 'Message ' . $getId['email'] . ' has been deleted !');
+    $this->session->set_flashdata('success', 'Message from ' . $getId['email'] . ' has been deleted !');
     redirect('message', 'refresh');
   }
 }

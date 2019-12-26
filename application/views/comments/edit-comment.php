@@ -61,9 +61,10 @@
             <?php endif; ?>
           </label>
         </div>
-
-        <a href="<?php echo base_url(); ?>comment" class="btn btn-secondary">Back</a>
-        <button type="submit" class="btn btn-success pull-right">Update</button>
+        <div class="modal-footer">
+          <a href="<?php echo base_url(); ?>comment" class="btn btn-secondary">Back</a>
+          <button type="submit" class="btn btn-success pull-right">Update</button>
+        </div>
       </form>
     </div>
   </div>

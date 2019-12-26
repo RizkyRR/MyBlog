@@ -16,8 +16,26 @@ class Message_model extends CI_Model
 
     $this->db->order_by('created_at', 'ASC');
 
-    $this->db->where('is_reply', 0);
+    // $this->db->where('is_reply', 0);
     $query = $this->db->get('message', $limit, $offset);
+    return $query->result_array();
+  }
+
+  public function getAllMessageSent($limit, $offset, $keyword)
+  {
+    $this->db->select('*');
+    $this->db->from('message');
+    $this->db->join('message_sent', 'message_sent.message_id = message.id');
+
+    if ($keyword) {
+      $this->db->or_like('email', $keyword);
+    }
+
+    $this->db->order_by('reply_at', 'DESC');
+
+    $this->db->limit($limit, $offset);
+
+    $query = $this->db->get();
     return $query->result_array();
   }
 
@@ -31,6 +49,11 @@ class Message_model extends CI_Model
   public function insert($data)
   {
     $this->db->insert('message', $data);
+  }
+
+  public function send($data)
+  {
+    $this->db->insert('message_sent', $data);
   }
 
   public function getMessageById($id)
@@ -48,6 +71,12 @@ class Message_model extends CI_Model
   {
     $this->db->where('id', $id);
     $this->db->delete('message');
+  }
+
+  public function delete_sent($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('message_sent');
   }
 }
   

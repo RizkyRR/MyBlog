@@ -114,9 +114,10 @@
             <small class="form-text text-danger"><?= form_error('active_opt'); ?></small>
           </div>
 
-          <!-- /.box-body -->
-          <a href="<?php echo base_url(); ?>post" class="btn btn-secondary">Back</a>
-          <button type="submit" value="save" name="save" class="btn btn-success pull-right">Update</button>
+          <div class="modal-footer">
+            <a href="<?php echo base_url(); ?>post" class="btn btn-secondary">Back</a>
+            <button type="submit" value="save" name="save" class="btn btn-success pull-right">Update</button>
+          </div>
         </form>
       </div>
     </div>

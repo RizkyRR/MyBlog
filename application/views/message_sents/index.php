@@ -48,36 +48,30 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Name</th>
               <th>Email</th>
-              <th>Phone</th>
               <th>Message</th>
-              <th>Datetime</th>
+              <th>Reply At</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <?php
-            if ($message) :
-              foreach ($message as $val) : ?>
+            if ($message_sent) :
+              foreach ($message_sent as $val) : ?>
                 <tr>
                   <td><?php echo ++$start; ?></td>
-                  <td><?php echo $val['name']; ?></td>
                   <td><?php echo $val['email']; ?></td>
-                  <td><?php echo $val['phone']; ?></td>
-                  <td><?php echo substr($val['message_content'], 0, 100); ?></td>
-                  <td><?php echo date('d M Y H:i:s', strtotime($val['created_at'])); ?></td>
+                  <td><?php echo $val['message_reply']; ?></td>
+                  <td><?php echo date('d M Y H:i:s', strtotime($val['reply_at'])); ?></td>
                   <td>
-                    <a href="<?php echo base_url() ?>message/delete/<?php echo $val['id'] ?>" class="btn btn-sm btn-danger button-delete btn-circle" title="Delete Message"><i class="fas fa-trash"></i></a>
-                    <?php if ($val['is_reply'] == 0) : ?>
-                      <a href="<?php echo base_url() ?>message/reply/<?php echo $val['id'] ?>" class="btn btn-sm btn-primary btn-circle" title="Reply Message"><i class="fas fa-reply"></i></a>
-                    <?php endif; ?>
+                    <a href="<?php echo base_url() ?>message_sent/delete/<?php echo $val['id'] ?>" class="btn btn-sm btn-danger button-delete btn-circle" title="Delete Message"><i class="fas fa-trash"></i></a>
+                    <a href="#" data-toggle="modal" data-target="#detail-modal<?php echo $val['id'] ?>" class="btn btn-sm btn-info btn-circle" data-popup="tooltip" data-placement="top" title="Detail Message"><i class="fas fa-info"></i></a>
                   </td>
                 </tr>
               <?php endforeach; ?>
             <?php else : ?>
               <tr>
-                <td colspan="7" style="text-align: center">Data not found !</td>
+                <td colspan="5" style="text-align: center">Data not found !</td>
               </tr>
             <?php endif; ?>
           </tbody>

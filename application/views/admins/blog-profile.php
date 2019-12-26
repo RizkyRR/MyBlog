@@ -104,8 +104,9 @@
             </tbody>
           </table>
         </div>
-
-        <button type="submit" class="btn btn-success pull-right">Save</button>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success pull-right">Save</button>
+        </div>
       </form>
     </div>
   </div>

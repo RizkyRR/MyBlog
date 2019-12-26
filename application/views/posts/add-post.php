@@ -51,7 +51,7 @@
 
           <div class="form-group">
             <label for="image">Picture</label>
-            <div class="row col-md-3">
+            <div class="row col-md-6">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" name="image" id="image" required>
                 <label class="custom-file-label" for="image">Choose File</label>
@@ -96,9 +96,10 @@
             <small class="form-text text-danger"><?= form_error('active_opt'); ?></small>
           </div>
 
-          <!-- /.box-body -->
-          <a href="<?php echo base_url(); ?>post" class="btn btn-secondary">Back</a>
-          <button type="submit" value="save" name="save" class="btn btn-success pull-right">Save</button>
+          <div class="modal-footer">
+            <a href="<?php echo base_url(); ?>post" class="btn btn-secondary">Back</a>
+            <button type="submit" value="save" name="save" class="btn btn-success pull-right">Save</button>
+          </div>
         </form>
       </div>
     </div>

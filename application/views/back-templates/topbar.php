@@ -22,7 +22,71 @@
           </p>
         </li>
 
+        <div class="topbar-divider d-none d-sm-block"></div>
 
+        <li class="nav-item dropdown no-arrow mx-1">
+          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-comment"></i>
+            <!-- Counter - Alerts -->
+            <?php
+            $data = newCommentCount();
+            if ($data) :
+            ?>
+              <span class="badge badge-danger badge-counter"><?php echo $data; ?></span>
+            <?php endif; ?>
+          </a>
+          <!-- Dropdown - Alerts -->
+          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="commentDropdown">
+            <?php
+            $data = newCommentInfo();
+            if (is_array($data) || is_object($data)) :
+              echo '<h6 class="dropdown-header">
+                  Comment Center
+                </h6>';
+              foreach ($data as $val) :
+            ?>
+                <a class="dropdown-item d-flex align-items-center" href="<?php echo base_url() ?>comment">
+                  <div>
+                    <div class="text-truncate"><?php echo $val['content']; ?></div>
+                    <div class="small text-gray-500"><?php echo $val['username']; ?></div>
+                  </div>
+                </a>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown no-arrow mx-1">
+          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-envelope"></i>
+            <!-- Counter - Alerts -->
+            <?php
+            $data = newMessageCount();
+            if ($data) :
+            ?>
+              <span class="badge badge-danger badge-counter"><?php echo $data; ?></span>
+            <?php endif; ?>
+          </a>
+          <!-- Dropdown - Alerts -->
+          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messageDropdown">
+            <?php
+            $data = newMessageInfo();
+            if (is_array($data) || is_object($data)) :
+              echo '<h6 class="dropdown-header">
+                  Message Center
+                </h6>';
+              foreach ($data as $val) :
+            ?>
+                <a class="dropdown-item d-flex align-items-center" href="<?php echo base_url() ?>message">
+                  <div>
+                    <div class="text-truncate"><?php echo $val['message_content']; ?></div>
+                    <div class="small text-gray-500"><?php echo $val['name']; ?></div>
+                  </div>
+                </a>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </div>
+        </li>
 
         <div class="topbar-divider d-none d-sm-block"></div>
 

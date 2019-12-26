@@ -41,9 +41,10 @@
             Visible ?
           </label>
         </div>
-
-        <a href="<?php echo base_url(); ?>category" class="btn btn-secondary">Back</a>
-        <button type="submit" class="btn btn-success pull-right">Save</button>
+        <div class="modal-footer">
+          <a href="<?php echo base_url(); ?>category" class="btn btn-secondary">Back</a>
+          <button type="submit" class="btn btn-success pull-right">Save</button>
+        </div>
       </form>
     </div>
   </div>

@@ -46,7 +46,7 @@
 
           <div class="form-group">
             <label for="content">Content</label>
-            <textarea class="form-control" id="textckeditor" name="content" rows="3" placeholder="Content.." readonly><?php echo $val['content']; ?></textarea>
+            <textarea class="form-control" id="content" name="content" rows="10" placeholder="Content.." readonly><?php echo $val['content']; ?></textarea>
           </div>
 
           <div class="form-group">

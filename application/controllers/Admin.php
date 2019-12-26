@@ -15,14 +15,20 @@ class Admin extends CI_Controller
     $info['title']  = 'Dashboard';
     $info['user']   = $this->Auth_model->getUserSession();
 
-    // GET EARNINGS MONTHLY https://stackoverflow.com/questions/16717274/calculate-monthly-totals-using-php
+    // GET COUNT POST
+    $info['count_post'] = $this->Admin_model->getPostCount();
 
+    // GET COUNT MESSAGE
+    $info['count_message'] = $this->Admin_model->getMessageCount();
 
-    // GET EARNINGS ANNUAL / A YEAR
+    // GET COUNT COMMENT
+    $info['count_comment'] = $this->Admin_model->getCommentCount();
 
-    // GET USER COUNT
+    // GET COUNT VISITOR
+    // https://stackoverflow.com/questions/37222184/codeigniter-how-to-do-hit-counter-for-each-news[/link]
+    // https://stackoverflow.com/questions/31684064/hit-counter-in-codeigniter
+    // https://stackoverflow.com/questions/13780817/visit-counter-stored-to-a-file-using-codeigniter
 
-    // GET ONLINE USER 
     renderTemplate('admins/index', $info);
   }
 }

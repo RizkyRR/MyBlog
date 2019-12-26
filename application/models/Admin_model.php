@@ -9,10 +9,24 @@ class Admin_model extends CI_Model
     parent::__construct();
   }
 
-  public function getUserCount()
+  public function getPostCount()
   {
     $this->db->select('COUNT(*)');
-    $this->db->from('user');
+    $this->db->from('blog');
+    return $this->db->count_all_results();
+  }
+
+  public function getMessageCount()
+  {
+    $this->db->select('COUNT(*)');
+    $this->db->from('message');
+    return $this->db->count_all_results();
+  }
+
+  public function getCommentCount()
+  {
+    $this->db->select('COUNT(*)');
+    $this->db->from('comment');
     return $this->db->count_all_results();
   }
 

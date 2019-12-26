@@ -34,8 +34,11 @@
           <input type="text" class="form-control" id="name" name="name" placeholder="Enter menu name" value="<?php echo $id['menu']; ?>">
           <small class="form-text text-danger"><?= form_error('name'); ?></small>
         </div>
-        <a href="<?php echo base_url(); ?>menu" class="btn btn-secondary">Back</a>
-        <button type="submit" class="btn btn-success pull-right">Update</button>
+
+        <div class="modal-footer">
+          <a href="<?php echo base_url(); ?>menu" class="btn btn-secondary">Back</a>
+          <button type="submit" class="btn btn-success pull-right">Update</button>
+        </div>
       </form>
     </div>
   </div>
