@@ -51,7 +51,6 @@
         <div class="form-group">
           <label for="">About</label>
           <textarea class="form-control" id="textckeditor" name="about" rows="3" placeholder="About.."><?php echo $profile['about']; ?></textarea>
-          <small class="form-text text-danger"><?= form_error('about'); ?></small>
         </div>
 
         <div class="form-group">

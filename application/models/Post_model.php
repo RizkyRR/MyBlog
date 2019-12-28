@@ -26,6 +26,21 @@ class Post_model extends CI_Model
     return $query->result_array();
   }
 
+  public function getShowAllPost($limit, $offset)
+  {
+    $this->db->select('*, blog.slug as b_slug');
+    $this->db->from('blog');
+    $this->db->join('category', 'category.category_id = blog.category_id');
+    $this->db->where('active', "Active");
+
+    $this->db->order_by('created_at', 'DESC');
+
+    $this->db->limit($limit, $offset);
+
+    $query = $this->db->get();
+    return $query->result_array();
+  }
+
   public function getPost()
   {
     $this->db->order_by('title', 'ASC');

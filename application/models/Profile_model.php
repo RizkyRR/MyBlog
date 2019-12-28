@@ -15,12 +15,24 @@ class Profile_model extends CI_Model
     return $this->db->get_where('blog_profile_detail', ['blog_profile_id' => $id])->result_array();
   }
 
+  public function getLinkProfile()
+  {
+    $this->db->select('*');
+    $this->db->from('link_blog_profile');
+    $this->db->join('blog_profile_detail', 'blog_profile_detail.link_blog_profile_id = link_blog_profile.id');
+
+    $this->db->order_by('id', 'ASC');
+
+    $query = $this->db->get();
+    return $query->result_array();
+  }
+
   // public function getAllProfileById($id)
   // {
   //   $this->db->select('*');
   //   $this->db->from('blog_profile');
   //   $this->db->join('blog_profile_detail', 'blog_profile_detail.blog_profile_id = blog_profile.id');
-  //   $this->db->join('blog_image', 'blog_image.blog_profile_id = blog_profile.id');
+  //   // $this->db->join('blog_image', 'blog_image.blog_profile_id = blog_profile.id');
   //   $this->db->where('blog_profile.id', $id);
 
   //   $query = $this->db->get();

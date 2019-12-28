@@ -30,16 +30,15 @@ class Blog_Profile extends CI_Controller
     $this->form_validation->set_rules('name', 'blog name', 'trim|required');
     $this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
     $this->form_validation->set_rules('phone', 'phone number', 'trim|required|min_length[7]|max_length[12]|numeric');
-    $this->form_validation->set_rules('about', 'about', 'trim|required|min_length[10]');
     $this->form_validation->set_rules('icon', 'icon', 'trim|required');
     $this->form_validation->set_rules('url[]', 'url', 'trim|required');
 
     $file = [
-      'name' => $this->security->xss_clean(html_escape($this->input->post('name', true))),
-      'email' => $this->security->xss_clean(html_escape($this->input->post('email', true))),
-      'phone' => $this->security->xss_clean(html_escape($this->input->post('phone', true))),
-      'about' => $this->security->xss_clean(html_escape($this->input->post('about', true))),
-      'icon' => $this->security->xss_clean(html_escape($this->input->post('icon', true)))
+      'name' => $this->input->post('name', true),
+      'email' => $this->input->post('email', true),
+      'phone' => $this->input->post('phone', true),
+      'about' => $this->input->post('about', true),
+      'icon' => $this->input->post('icon', true)
     ];
 
     if ($this->form_validation->run() == FALSE) {
