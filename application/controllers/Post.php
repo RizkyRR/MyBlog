@@ -203,6 +203,19 @@ class Post extends CI_Controller
     $this->session->set_flashdata('success', 'Your post has been deleted !');
     redirect('post', 'refresh');
   }
+
+  // Read Post 
+  public function read($c_slug = null, $b_slug = null)
+  {
+    if ($c_slug == null || $b_slug == null) {
+      redirect('home', 'refresh');
+    }
+
+    $info['read'] = $this->Post_model->getReadPost($c_slug, $b_slug);
+    $info['title'] = $info['read']['title'];
+
+    renderFrontTemplate('posts/read-post', $info);
+  }
 }
   
   /* End of file Post.php */

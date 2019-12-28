@@ -23,7 +23,7 @@
         foreach ($post as $val) :
       ?>
           <div class="post-preview">
-            <a href="<?php echo base_url() ?>home/showpost/<?php echo $val['blog_id'] ?>">
+            <a href="<?php echo base_url() ?>post/read/<?php echo $val['c_slug'] ?>/<?php echo $val['b_slug'] ?>">
               <h2 class="post-title">
                 <?= $val['title'] ?>
               </h2>

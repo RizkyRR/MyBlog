@@ -12,7 +12,7 @@
             foreach ($link_profile as $val) :
           ?>
               <li class="list-inline-item">
-                <a href="<?php echo $val['url'] ?>">
+                <a href="<?php echo $val['url'] ?>" target="_blank">
                   <span class="fa-stack fa-lg">
                     <i class="fas fa-circle fa-stack-2x"></i>
                     <i class="<?php echo $val['icon'] ?> fa-stack-1x fa-inverse"></i>

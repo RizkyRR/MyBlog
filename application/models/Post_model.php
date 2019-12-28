@@ -28,7 +28,7 @@ class Post_model extends CI_Model
 
   public function getShowAllPost($limit, $offset)
   {
-    $this->db->select('*, blog.slug as b_slug');
+    $this->db->select('*, blog.slug as b_slug, category.slug as c_slug');
     $this->db->from('blog');
     $this->db->join('category', 'category.category_id = blog.category_id');
     $this->db->where('active', "Active");
@@ -39,6 +39,18 @@ class Post_model extends CI_Model
 
     $query = $this->db->get();
     return $query->result_array();
+  }
+
+  public function getReadPost($c_slug, $b_slug)
+  {
+    $this->db->select('*, blog.slug as b_slug, category.slug as c_slug');
+    $this->db->from('blog');
+    $this->db->join('category', 'category.category_id = blog.category_id');
+    $this->db->where('category.slug', $c_slug);
+    $this->db->where('blog.slug', $b_slug);
+
+    $query = $this->db->get();
+    return $query->row_array();
   }
 
   public function getPost()
