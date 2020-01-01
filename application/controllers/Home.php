@@ -5,12 +5,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Home extends CI_Controller
 {
 
-
-  public function __construct()
-  {
-    parent::__construct();
-  }
-
   public function index()
   {
     $info['title'] = "Home";
@@ -44,6 +38,53 @@ class Home extends CI_Controller
     $info['pagination'] = $this->pagination->create_links();
 
     renderFrontTemplate('front-home/index', $info);
+  }
+
+  // Read Post 
+  private function view_count($b_slug)
+  {
+    $slug = $this->Post_model->getPostBySlug($b_slug);
+    $check_visitor = $this->input->cookie(urldecode($b_slug), false);
+    $ip = $this->input->ip_address();
+
+    if ($check_visitor == false) {
+      $cookie = [
+        'name' => urldecode($b_slug),
+        'value' => "$ip",
+        'expire' => time() + 7200,
+        'secure' => false
+      ];
+
+      $this->input->set_cookie($cookie);
+
+      $getPrevViews = $slug['blog_views'];
+
+      $data = [
+        'blog_views' => $getPrevViews + 1
+      ];
+
+      $this->Post_model->updateViewCounter(urldecode($b_slug), $data);
+    }
+  }
+
+  public function read($c_slug = null, $b_slug = null)
+  {
+    if ($c_slug == null || $b_slug == null) {
+      redirect('home', 'refresh');
+    }
+
+    $info['read'] = $this->Post_model->getReadPost($c_slug, $b_slug);
+    $info['title'] = $info['read']['title'];
+
+    $data = [
+      'blog_views' => $info['read']['blog_views'] + 1
+    ];
+
+    // $this->Post_model->updateBySlug($b_slug, $data);
+
+    $this->view_count($b_slug);
+
+    renderFrontTemplate('posts/read-post', $info);
   }
 }
   

@@ -30,6 +30,13 @@ class Admin_model extends CI_Model
     return $this->db->count_all_results();
   }
 
+  public function geVisitorCount()
+  {
+    $this->db->select("SUM(blog_views) AS count_views");
+    $query = $this->db->get_where('blog', 'active = "Active"');
+    return $query->row_array();
+  }
+
   public function getUserOnline()
   {
     $this->db->select("SUM(online) AS isonline");

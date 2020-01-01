@@ -60,6 +60,25 @@ class Comment_model extends CI_Model
     $this->db->update('comment', $data);
   }
 
+  public function getNewCommentInfo()
+  {
+    // $this->db->select('product_name');
+    $this->db->order_by('datetime', 'desc');
+    $this->db->limit(5);
+
+    $query = $this->db->get_where('comment', 'is_reply = 0');
+
+    return $query->result_array();
+  }
+
+  public function getNewCommentCount()
+  {
+    $this->db->select('COUNT(*)');
+    $this->db->from('comment');
+    $this->db->where('is_reply = 0');
+    return $this->db->count_all_results();
+  }
+
   public function delete($id)
   {
     $this->db->where('comment_id', $id);

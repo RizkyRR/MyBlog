@@ -28,6 +28,7 @@ class Admin extends CI_Controller
     // https://stackoverflow.com/questions/37222184/codeigniter-how-to-do-hit-counter-for-each-news[/link]
     // https://stackoverflow.com/questions/31684064/hit-counter-in-codeigniter
     // https://stackoverflow.com/questions/13780817/visit-counter-stored-to-a-file-using-codeigniter
+    $info['count_visitor'] = $this->Admin_model->geVisitorCount();
 
     renderTemplate('admins/index', $info);
   }

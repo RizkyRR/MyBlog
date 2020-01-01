@@ -111,6 +111,18 @@ class Comment extends CI_Controller
     }
   }
 
+  public function comment_count_data()
+  {
+    $data = $this->Comment_model->getNewCommentCount();
+    echo json_encode($data);
+  }
+
+  public function comment_notif_data()
+  {
+    $data = $this->Comment_model->getNewCommentInfo();
+    echo json_encode($data);
+  }
+
   public function deleteComment($id)
   {
     $this->Comment_model->delete($id);

@@ -135,5 +135,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
       <script src="<?php echo base_url(); ?>back-assets/js/detail-time-order.js"></script>
       <script src="<?php echo base_url(); ?>back-assets/js/select2.full.min.js"></script>
+      <script src="<?php echo base_url(); ?>back-assets/js/message-alert.js"></script>
+      <script src="<?php echo base_url(); ?>back-assets/js/comment-alert.js"></script>
 
       </html>

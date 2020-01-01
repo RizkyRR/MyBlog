@@ -33,7 +33,7 @@ class Post_model extends CI_Model
     $this->db->join('category', 'category.category_id = blog.category_id');
     $this->db->where('active', "Active");
 
-    $this->db->order_by('created_at', 'DESC');
+    $this->db->order_by('created_at', 'desc');
 
     $this->db->limit($limit, $offset);
 
@@ -60,6 +60,18 @@ class Post_model extends CI_Model
     return $query->result_array();
   }
 
+  public function getPostBySlug($slug)
+  {
+    return $this->db->get_where('blog', ['blog_views' => $slug])->row_array();
+  }
+
+  public function updateViewCounter($id, $data)
+  {
+    // increase view 
+    $this->db->where('slug', $id);
+    $this->db->update('blog', $data);
+  }
+
   public function insert($data)
   {
     $this->db->insert('blog', $data);
@@ -73,6 +85,12 @@ class Post_model extends CI_Model
   public function update($id, $data)
   {
     $this->db->where('blog_id', $id);
+    $this->db->update('blog', $data);
+  }
+
+  public function updateBySlug($slug, $data)
+  {
+    $this->db->where('slug', $slug);
     $this->db->update('blog', $data);
   }
 

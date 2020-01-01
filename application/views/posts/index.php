@@ -64,22 +64,22 @@
           </thead>
           <tbody>
             <?php
-                                    if ($post) :
-                                      foreach ($post as $val) :
+            if ($post) :
+              foreach ($post as $val) :
             ?>
                 <tr>
                   <td><?php echo ++$start; ?></td>
                   <td><?php echo $val['title']; ?></td>
                   <td><?php echo $val['slug']; ?></td>
                   <td><?php echo $val['short_content']; ?></td>
-                  <td><?php echo date('d M Y', strtotime($val['created_at'])); ?></td>
+                  <td><?php echo date('d M Y H:i:s', strtotime($val['created_at'])); ?></td>
                   <td>
                     <?php
-                                        if ($val['active'] == "Active") {
-                                          echo "<p class='badge badge-success'>Active</p>";
-                                        } else {
-                                          echo "<p class='badge badge-danger'>Inactive</p>";
-                                        }
+                    if ($val['active'] == "Active") {
+                      echo "<p class='badge badge-success'>Active</p>";
+                    } else {
+                      echo "<p class='badge badge-danger'>Inactive</p>";
+                    }
                     ?>
                   </td>
                   <td>

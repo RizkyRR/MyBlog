@@ -106,6 +106,7 @@ class Post extends CI_Controller
     $info['user'] = $this->Auth_model->getUserSession();
     $info['category'] = $this->Category_model->getCategory();
     $getUser  = $this->Auth_model->checkUser($this->session->userdata('email'));
+    date_default_timezone_set('Asia/Jakarta');
 
     $this->form_validation->set_rules('title', 'post title', 'trim|required|min_length[5]|is_unique[blog.title]', [
       'is_unique' => 'the title already exists, please use another title.'
@@ -123,6 +124,7 @@ class Post extends CI_Controller
       'picture' => $this->_uploadImage(),
       'short_content' => substr($this->input->post('content', true), 0, 100),
       'content' => $this->input->post('content', true),
+      'created_at' => date('Y-m-d H:i:s'),
       'pending' => 0,
       'public' => 1,
       'active' => $this->input->post('active_opt')
@@ -202,19 +204,6 @@ class Post extends CI_Controller
     $this->Post_model->delete($id);
     $this->session->set_flashdata('success', 'Your post has been deleted !');
     redirect('post', 'refresh');
-  }
-
-  // Read Post 
-  public function read($c_slug = null, $b_slug = null)
-  {
-    if ($c_slug == null || $b_slug == null) {
-      redirect('home', 'refresh');
-    }
-
-    $info['read'] = $this->Post_model->getReadPost($c_slug, $b_slug);
-    $info['title'] = $info['read']['title'];
-
-    renderFrontTemplate('posts/read-post', $info);
   }
 }
   

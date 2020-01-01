@@ -63,7 +63,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitor</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">Sample</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $count_visitor['count_views']; ?></div>
             </div>
             <div class="col-auto">
               <i class="far fa-eye fa-2x text-gray-300"></i>

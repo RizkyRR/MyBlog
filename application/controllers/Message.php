@@ -165,6 +165,18 @@ class Message extends CI_Controller
     }
   }
 
+  public function message_count_data()
+  {
+    $data = $this->Message_model->getNewMessageCount();
+    echo json_encode($data);
+  }
+
+  public function message_notif_data()
+  {
+    $data = $this->Message_model->getNewMessageInfo();
+    echo json_encode($data);
+  }
+
   public function delete($id)
   {
     $getId = $this->Message_model->getMessageById($id);

@@ -14,7 +14,7 @@ class Message_model extends CI_Model
       $this->db->or_like('phone', $keyword);
     }
 
-    $this->db->order_by('created_at', 'ASC');
+    $this->db->order_by('created_at', 'DESC');
 
     // $this->db->where('is_reply', 0);
     $query = $this->db->get('message', $limit, $offset);
@@ -41,7 +41,7 @@ class Message_model extends CI_Model
 
   public function getMessage()
   {
-    $this->db->order_by('created_at', 'ASC');
+    $this->db->order_by('created_at', 'DESC');
     $query = $this->db->get('message');
     return $query->result_array();
   }
@@ -54,6 +54,25 @@ class Message_model extends CI_Model
   public function send($data)
   {
     $this->db->insert('message_sent', $data);
+  }
+
+  public function getNewMessageInfo()
+  {
+    // $this->db->select('product_name');
+    $this->db->order_by('created_at', 'desc');
+    $this->db->limit(5);
+
+    $query = $this->db->get_where('message', 'is_reply = 0');
+
+    return $query->result_array();
+  }
+
+  public function getNewMessageCount()
+  {
+    $this->db->select('COUNT(*)');
+    $this->db->from('message');
+    $this->db->where('is_reply = 0');
+    return $this->db->count_all_results();
   }
 
   public function getMessageById($id)
