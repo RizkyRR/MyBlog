@@ -1,8 +1,14 @@
-var commentTimeOut = 0;
-var ajaxCommentFn = function() {
+$(document).ready(function() {
+	setInterval(function() {
+		commentAjaxFn();
+	}, 1000); //request every x seconds
+});
+var baseurl = "<?php echo base_url(); ?>";
+
+function commentAjaxFn() {
 	// to show all comment comming
 	$.ajax({
-		url: "comment/comment_notif_data",
+		url: baseurl + "comment/comment_notif_data",
 		type: "ajax",
 		cache: true,
 		dataType: "JSON",
@@ -23,24 +29,17 @@ var ajaxCommentFn = function() {
 					"</a>";
 			}
 			$("#show_all_comment").html(html);
-
-			clearTimeout(commentTimeOut);
 		}
 	});
 
 	// to get count comment comming or not yet ready
 	$.ajax({
-		url: "comment/comment_count_data",
+		url: baseurl + "comment/comment_count_data",
 		type: "ajax",
 		cache: true,
 		dataType: "JSON",
 		success: function(data) {
 			$(".badge-counter-comment").html(data);
-
-			clearTimeout(commentTimeOut);
 		}
 	});
-};
-
-ajaxCommentFn();
-commentTimeOut = setTimeout(ajaxCommentFn, 10000);
+}

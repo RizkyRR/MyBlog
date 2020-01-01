@@ -70,7 +70,7 @@
                 <tr>
                   <td><?php echo ++$start; ?></td>
                   <td><?php echo $val['title']; ?></td>
-                  <td><?php echo $val['slug']; ?></td>
+                  <td><?php echo $val['b_slug']; ?></td>
                   <td><?php echo $val['short_content']; ?></td>
                   <td><?php echo date('d M Y H:i:s', strtotime($val['created_at'])); ?></td>
                   <td>

@@ -132,10 +132,109 @@
           });
         });
       </script>
+
+      <!-- Js for message alert -->
+      <script>
+        $(document).ready(function() {
+          setInterval(function() {
+            messageAjaxFn();
+          }, 1500); //request every x seconds
+        });
+        var baseurl = "<?php echo base_url(); ?>";
+
+        // to show all message comming
+        function messageAjaxFn() {
+          $.ajax({
+            url: baseurl + "message/message_notif_data",
+            type: "ajax",
+            cache: false,
+            dataType: "JSON",
+            success: function(data) {
+              var html = "";
+              var i;
+              for (i = 0; i < data.length; i++) {
+                html +=
+                  '<a class="dropdown-item d-flex align-items-center" href="message">' +
+                  "<div>" +
+                  '<div class="text-truncate">' +
+                  data[i].message_content +
+                  "</div>" +
+                  '<div class="small text-gray-500">' +
+                  data[i].name +
+                  "</div>" +
+                  "</div>" +
+                  "</a>";
+              }
+              $("#show_all_message").html(html);
+            }
+          });
+
+          // to get count message comming or not yet ready
+          $.ajax({
+            url: baseurl + "message/message_count_data",
+            type: "ajax",
+            cache: false,
+            dataType: "JSON",
+            success: function(data) {
+              $(".badge-counter-message").html(data);
+            }
+          });
+        }
+      </script>
+
+      <!-- Js for comment alert -->
+      <script>
+        $(document).ready(function() {
+          setInterval(function() {
+            commentAjaxFn();
+          }, 1500); //request every x seconds
+        });
+        var baseurl = "<?php echo base_url(); ?>";
+
+        function commentAjaxFn() {
+          // to show all comment comming
+          $.ajax({
+            url: baseurl + "comment/comment_notif_data",
+            type: "ajax",
+            cache: true,
+            dataType: "JSON",
+            success: function(data) {
+              var html = "";
+              var i;
+              for (i = 0; i < data.length; i++) {
+                html +=
+                  '<a class="dropdown-item d-flex align-items-center" href="comment">' +
+                  "<div>" +
+                  '<div class="text-truncate">' +
+                  data[i].content +
+                  "</div>" +
+                  '<div class="small text-gray-500">' +
+                  data[i].username +
+                  "</div>" +
+                  "</div>" +
+                  "</a>";
+              }
+              $("#show_all_comment").html(html);
+            }
+          });
+
+          // to get count comment comming or not yet ready
+          $.ajax({
+            url: baseurl + "comment/comment_count_data",
+            type: "ajax",
+            cache: true,
+            dataType: "JSON",
+            success: function(data) {
+              $(".badge-counter-comment").html(data);
+            }
+          });
+        }
+      </script>
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
       <script src="<?php echo base_url(); ?>back-assets/js/detail-time-order.js"></script>
       <script src="<?php echo base_url(); ?>back-assets/js/select2.full.min.js"></script>
-      <script src="<?php echo base_url(); ?>back-assets/js/message-alert.js"></script>
-      <script src="<?php echo base_url(); ?>back-assets/js/comment-alert.js"></script>
+      <!-- <script src="<?php echo base_url(); ?>back-assets/js/message-alert.js"></script>
+      <script src="<?php echo base_url(); ?>back-assets/js/comment-alert.js"></script> -->
 
       </html>

@@ -95,7 +95,7 @@ class Auth extends CI_Controller
 
     if ($this->form_validation->run() == FALSE) {
       $this->load->view('back-templates/header_auth', $info);
-      $this->load->view('auths/forgot_pass');
+      $this->load->view('auths/forgot-pass');
       $this->load->view('back-templates/footer_auth');
     } else {
       $data = [

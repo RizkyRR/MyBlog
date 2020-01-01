@@ -3,11 +3,12 @@ $(document).ready(function() {
 		messageAjaxFn();
 	}, 1000); //request every x seconds
 });
+var baseurl = "<?php echo base_url(); ?>";
 
 // to show all message comming
 function messageAjaxFn() {
 	$.ajax({
-		url: "message/message_notif_data",
+		url: baseurl + "message/message_notif_data",
 		type: "ajax",
 		cache: false,
 		dataType: "JSON",
@@ -33,7 +34,7 @@ function messageAjaxFn() {
 
 	// to get count message comming or not yet ready
 	$.ajax({
-		url: "message/message_count_data",
+		url: baseurl + "message/message_count_data",
 		type: "ajax",
 		cache: false,
 		dataType: "JSON",

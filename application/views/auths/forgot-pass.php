@@ -3,14 +3,13 @@
   <!-- Outer Row -->
   <div class="row justify-content-center">
 
-    <div class="col-xl-10 col-lg-12 col-md-9">
+    <div class="col-lg-6">
 
       <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
           <!-- Nested Row within Card Body -->
           <div class="row">
-            <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-            <div class="col-lg-6">
+            <div class="col-lg">
               <div class="p-5">
 
                 <?php if ($this->session->flashdata('success')) { ?>
@@ -36,7 +35,7 @@
                     <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="Email" value="<?php echo set_value('email') ?>">
                     <small class="form-text text-danger"><?php echo form_error('email') ?></small>
                   </div>
-                  <div class="form-group row">
+                  <!-- <div class="form-group row">
                     <div class="col-sm-6">
                       <a href="<?php echo base_url() ?>" class="btn btn-secondary btn-user btn-block">Cancel</a>
                     </div>
@@ -45,14 +44,14 @@
                         Reset Password
                       </button>
                     </div>
-                  </div>
+                  </div> -->
+                  <button type="submit" class="btn btn-primary btn-user btn-block">
+                    Reset Password
+                  </button>
                 </form>
                 <hr>
                 <div class="text-center">
-                  <a href="<?php echo base_url() ?>auth/register" class="text-center small">Create an Account!</a>
-                </div>
-                <div class="text-center">
-                  <a href="<?php echo base_url(); ?>auth" class="small">Already have an account? Login!</a>
+                  <a href="<?php echo base_url(); ?>auth" class="small">Try to login? Click here!</a>
                 </div>
               </div>
             </div>
