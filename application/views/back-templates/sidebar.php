@@ -12,55 +12,43 @@
   <!-- Divider -->
   <hr class="sidebar-divider">
 
-  <!-- QUERY MENU -->
+  <!-- Heading -->
   <?php
-  $role_id = $this->session->userdata('role_id');
-  $sqlMenu = "
-      SELECT `menu`.`id`, `menu`
-      FROM `menu`
-      ORDER BY `id` ASC
-    ";
-  $menu   = $this->db->query($sqlMenu)->result_array();
+  $menus = sidebarMenu();
+  if (is_array($menus) || is_object($menus)) :
+    foreach ($menus as $menu) :
   ?>
+      <div class="sidebar-heading">
+        <?php echo $menu['menu'] ?>
+      </div>
 
-  <!-- LOOPING MENU -->
-  <!-- HEADING -->
-  <?php foreach ($menu as $m) : ?>
-    <div class="sidebar-heading">
-      <?php echo $m['menu']; ?>
-    </div>
-    <!-- LOOPING SUB MENU -->
-    <?php
-      $menu_id    = $m['id'];
-      $sqlSubMenu = "
-        SELECT *
-        FROM `sub_menu`
-        WHERE `menu_id` = $menu_id
-        AND `is_active` = 1
-      ";
-      $submenu = $this->db->query($sqlSubMenu)->result_array();
+      <?php
+      $menu_id = $menu['id'];
+      $submenus = sidebarSubMenu($menu_id);
+      if (is_array($submenus) || is_object($submenus)) :
+        foreach ($submenus as $submenu) :
       ?>
 
-    <?php foreach ($submenu as $sm) : ?>
+          <?php if ($title == $submenu['title']) : ?>
+            <li class="nav-item active">
+            <?php else : ?>
+            <li class="nav-item">
+            <?php endif; ?>
 
-      <?php if ($title == $sm['title']) : ?>
-        <li class="nav-item active">
-        <?php else : ?>
-        <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url($submenu['url']); ?>">
+              <i class="<?php echo $submenu['icon']; ?>"></i>
+              <span><?php echo $submenu['title']; ?></span>
+            </a>
+            </li>
+
+          <?php endforeach; ?>
         <?php endif; ?>
 
-        <a class="nav-link" href="<?php echo base_url($sm['url']); ?>">
-          <i class="<?php echo $sm['icon']; ?>"></i>
-          <span><?php echo $sm['title']; ?></span>
-        </a>
-        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
 
       <?php endforeach; ?>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-    <?php endforeach; ?>
+    <?php endif; ?>
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
