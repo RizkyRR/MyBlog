@@ -119,7 +119,7 @@ class Post extends CI_Controller
     $file = [
       'user_id' => $getUser['name'],
       'category_id' => $this->input->post('category_opt'),
-      'title' => $this->security->xss_clean(html_escape($this->input->post('title', true))),
+      'title' => $this->input->post('title', true),
       'slug' => set_slug($this->input->post('title', true)),
       'picture' => $this->_uploadImage(),
       'short_content' => substr($this->input->post('content', true), 0, 100),
@@ -176,7 +176,7 @@ class Post extends CI_Controller
 
     $data = [
       'category_id' => $this->input->post('category_opt'),
-      'title' => $this->security->xss_clean(html_escape($this->input->post('title', true))),
+      'title' => $this->input->post('title', true),
       'slug' => set_slug($this->input->post('title', true)),
       'short_content' => substr($this->input->post('content', true), 0, 100),
       'content' => $this->input->post('content', true),
