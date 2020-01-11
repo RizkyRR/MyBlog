@@ -4,10 +4,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Menu_model extends CI_Model
 {
-
-  public function __construct()
+  public function getMenuCountPage()
   {
-    parent::__construct();
+    $query = $this->db->get('menu');
+    return $query->num_rows();
+  }
+
+  public function getSubMenuCountPage()
+  {
+    $this->db->select('*');
+    $this->db->from('sub_menu');
+    $this->db->join('menu', 'menu.id = sub_menu.menu_id', 'inner');
+
+    $query = $this->db->get();
+    return $query->num_rows();
   }
 
   public function getMenuById($id)

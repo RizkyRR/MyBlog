@@ -29,11 +29,10 @@ class Category extends CI_Controller
     // DB PAGINATION FOR SEARCHING
     $this->db->like('category_id', $info['keyword']);
     $this->db->or_like('name', $info['keyword']);
-    $this->db->from('category');
 
     // PAGINATION
     $config['base_url']     = base_url() . 'category/index';
-    $config['total_rows']   = $this->db->count_all_results();
+    $config['total_rows']   = $this->Category_model->getCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5;
 
@@ -74,6 +73,12 @@ class Category extends CI_Controller
 
     // PASSING DATA
     renderTemplate('categories/index', $info);
+  }
+
+  public function category_data()
+  {
+    $data = $this->Category_model->getCategory();
+    echo json_encode($data);
   }
 
   public function addNew()

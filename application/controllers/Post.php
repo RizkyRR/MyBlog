@@ -27,9 +27,6 @@ class Post extends CI_Controller
     }
 
     // DB PAGINATION FOR SEARCHING
-    $this->db->select('*');
-    $this->db->from('blog');
-    $this->db->join('category', 'category.category_id = blog.category_id');
 
     $this->db->like('blog_id', $info['keyword']);
     $this->db->or_like('title', $info['keyword']);
@@ -37,8 +34,8 @@ class Post extends CI_Controller
     $this->db->or_like('name', $info['keyword']);
 
     // PAGINATION
-    $config['base_url']     = base_url() . 'post';
-    $config['total_rows']   = $this->db->count_all_results();
+    $config['base_url']     = base_url() . 'post/index';
+    $config['total_rows']   = $this->Post_model->getPostCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5;
 

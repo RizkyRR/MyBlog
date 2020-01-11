@@ -32,13 +32,9 @@ class Message extends CI_Controller
     $this->db->or_like('email', $info['keyword']);
     $this->db->or_like('phone', $info['keyword']);
 
-    // $this->db->where('is_reply', 0);
-
-    $this->db->from('message');
-
     // PAGINATION
-    $config['base_url']     = base_url() . 'message';
-    $config['total_rows']   = $this->db->count_all_results();
+    $config['base_url']     = base_url() . 'message/index';
+    $config['total_rows']   = $this->Message_model->getMessageCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5;
 

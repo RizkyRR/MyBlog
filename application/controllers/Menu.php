@@ -31,11 +31,10 @@ class Menu extends CI_Controller
     // DB PAGINATION FOR SEARCHING
     $this->db->like('id', $info['keyword']);
     $this->db->or_like('menu', $info['keyword']);
-    $this->db->from('menu');
     // DB PAGINATION FOR SEARCHING
 
     $config['base_url']     = base_url() . 'menu/index';
-    $config['total_rows']   = $this->db->count_all_results();
+    $config['total_rows']   = $this->Menu_model->getMenuCountPage();
     $config['per_page']     = 5;
     $config['num_links']    = 5;
 
@@ -142,10 +141,6 @@ class Menu extends CI_Controller
     // SEARCHING
 
     // DB PAGINATION FOR SEARCHING
-    $this->db->select('*');
-    $this->db->from('sub_menu');
-    $this->db->join('menu', 'menu.id = sub_menu.menu_id');
-
     $this->db->like('title', $info['keyword']);
     $this->db->or_like('menu', $info['keyword']);
     $this->db->or_like('url', $info['keyword']);
@@ -161,7 +156,7 @@ class Menu extends CI_Controller
         */
 
     $config['base_url']     = base_url() . 'menu/submenu';
-    $config['total_rows']   = $this->db->count_all_results();
+    $config['total_rows']   = $this->Menu_model->getSubMenuCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5; // set this num links to give limit show page, 5 means [1,2,3,4,5,next]
 
@@ -260,7 +255,7 @@ class Menu extends CI_Controller
       'title'     => $this->security->xss_clean(html_escape($this->input->post('name', true))),
       'url'       => $this->security->xss_clean(html_escape($this->input->post('url', true))),
       'icon'      => $this->security->xss_clean(html_escape($this->input->post('icon', true))),
-      'level'       => $this->security->xss_clean(html_escape($this->input->post('level', true))),
+      'level'     => $this->security->xss_clean(html_escape($this->input->post('level', true))),
       'is_active' => $status
     ];
 

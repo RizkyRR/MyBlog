@@ -36,19 +36,20 @@ class Auth extends CI_Controller
   {
     $config = [
       'protocol'   => 'smtp',
-      'smtp_host'  => 'ssl://smtp.googlemail.com',
-      'smtp_user'  => '111201408226@mhs.dinus.ac.id',
-      'smtp_pass'  => 'number68',
+      'smtp_host'  => 'ssl://mail.rizkyrahmadianto.com',
+      'smtp_user'  => 'admin@rizkyrahmadianto.com',
+      'smtp_pass'  => 'a3kPcWshdjSRDFH',
       'smtp_port'  => 465,
       'mailtype'  => 'html',
       'charset'  => 'utf-8',
-      'newline'  => "\r\n"
+      'newline'  => "\r\n",
+      'wordwrap' => TRUE
     ];
 
     $this->load->library('email', $config);
     $this->email->initialize($config);
 
-    $this->email->from('111201408226@mhs.dinus.ac.id', 'rizkyrahmadianto.com');
+    $this->email->from('admin@rizkyrahmadianto.com', 'rizkyrahmadianto.com');
     $this->email->to($this->input->post('email', true));
     /*$this->email->cc('another@example.com');
 		$this->email->bcc('and@another.com');*/

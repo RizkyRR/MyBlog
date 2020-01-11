@@ -27,7 +27,12 @@
   <!-- Bootstrap core JavaScript -->
   <script src="<?php echo base_url(); ?>back-assets/vendor/jquery/jquery.min.js"></script>
 
-  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" crossorigin="anonymous"> -->
+  <!-- Custom styles for this page -->
+  <!-- <link href="<?php echo base_url(); ?>back-assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
+
+  <!-- Page level plugins -->
+  <!-- <script src="<?php echo base_url(); ?>back-assets/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="<?php echo base_url(); ?>back-assets/vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
 </head>
 
 <body id="page-top">

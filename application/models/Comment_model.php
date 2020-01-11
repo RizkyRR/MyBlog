@@ -4,6 +4,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Comment_model extends CI_Model
 {
+  public function getCommentCountPage()
+  {
+    $this->db->select('*');
+    $this->db->from('comment');
+    $this->db->join('blog', 'blog.blog_id = comment.blog_id', 'inner');
+
+    $query = $this->db->get();
+    return $query->num_rows();
+  }
 
   public function getAllComment($limit, $offset, $keyword)
   {

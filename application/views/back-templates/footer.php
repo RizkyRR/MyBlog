@@ -154,7 +154,7 @@
               var i;
               for (i = 0; i < data.length; i++) {
                 html +=
-                  '<a class="dropdown-item d-flex align-items-center" href="message">' +
+                  '<a class="dropdown-item d-flex align-items-center" href="' + baseurl + 'message">' +
                   "<div>" +
                   '<div class="text-truncate">' +
                   data[i].message_content +
@@ -203,7 +203,7 @@
               var i;
               for (i = 0; i < data.length; i++) {
                 html +=
-                  '<a class="dropdown-item d-flex align-items-center" href="comment">' +
+                  '<a class="dropdown-item d-flex align-items-center" href="' + baseurl + 'comment">' +
                   "<div>" +
                   '<div class="text-truncate">' +
                   data[i].content +

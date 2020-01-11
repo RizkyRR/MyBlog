@@ -27,16 +27,13 @@ class Comment extends CI_Controller
     }
 
     // DB PAGINATION FOR SEARCHING
-    $this->db->select('*, comment.content AS c_content');
-    $this->db->from('comment');
-    $this->db->join('blog', 'blog.blog_id = comment.blog_id');
 
     $this->db->like('title', $info['keyword']);
     $this->db->or_like('username', $info['keyword']);
 
     // PAGINATION
-    $config['base_url']     = base_url() . 'comment';
-    $config['total_rows']   = $this->db->count_all_results();
+    $config['base_url']     = base_url() . 'comment/index';
+    $config['total_rows']   = $this->Comment_model->getCommentCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5;
 

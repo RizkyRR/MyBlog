@@ -47,7 +47,7 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-bordered" id="table" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>No</th>
@@ -67,12 +67,12 @@
                   <td><?php echo $val['slug']; ?></td>
                   <td>
                     <?php
-                        if ($val['visible'] == 1) {
-                          echo "<p class='badge badge-success'>Active</p>";
-                        } else {
-                          echo "<p class='badge badge-danger'>Inactive</p>";
-                        }
-                        ?>
+                    if ($val['visible'] == 1) {
+                      echo "<p class='badge badge-success'>Active</p>";
+                    } else {
+                      echo "<p class='badge badge-danger'>Inactive</p>";
+                    }
+                    ?>
                   </td>
                   <td>
                     <!-- <a href="<?php echo base_url() ?>category/delete/<?php echo $val['category_id'] ?>" class="btn btn-sm btn-danger button-delete btn-circle" title="Delete Category"><i class="fas fa-trash"></i></a> -->

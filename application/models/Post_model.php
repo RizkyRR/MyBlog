@@ -5,6 +5,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Post_model extends CI_Model
 {
 
+  public function getPostCountPage()
+  {
+    $this->db->select('*');
+    $this->db->from('blog');
+    $this->db->join('category', 'category.category_id = blog.category_id', 'inner');
+
+    $query = $this->db->get();
+    return $query->num_rows();
+  }
+
   public function getAllPost($limit, $offset, $keyword)
   {
     $this->db->select('*, blog.slug as b_slug');

@@ -5,6 +5,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Category_model extends CI_Model
 {
 
+  public function getCountPage()
+  {
+    $query = $this->db->get('category');
+    return $query->num_rows();
+  }
+
   public function getAllCategory($limit, $offset, $keyword)
   {
     if ($keyword) {

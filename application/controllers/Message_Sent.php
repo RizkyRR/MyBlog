@@ -26,15 +26,12 @@ class Message_Sent extends CI_Controller
     }
 
     // DB PAGINATION FOR SEARCHING
-    $this->db->select('*, message');
-    $this->db->from('message');
-    $this->db->join('message_sent', 'message_sent.message_id = message.id');
 
     $this->db->like('email', $info['keyword']);
 
     // PAGINATION
-    $config['base_url']     = base_url() . 'message_sent';
-    $config['total_rows']   = $this->db->count_all_results();
+    $config['base_url']     = base_url() . 'message_sent/index';
+    $config['total_rows']   = $this->Message_model->getSentCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5;
 
