@@ -11,23 +11,23 @@ class Home extends CI_Controller
     $info['subheading'] = "Try to Build Something with My Idealism";
 
     // PAGINATION
-    $config['base_url']     = base_url() . 'blog';
-    $config['total_rows']   = $this->db->count_all_results();
+    $config['base_url']     = base_url() . 'home/index';
+    $config['total_rows']   = $this->Post_model->getShowPostCountPage();
     $config['per_page']     = 5;
-    $config['num_links']    = 5;
+    // $config['num_links']    = 5;
 
     // STYLING
-    $config['full_tag_open']    = '<div class="clearfix">';
-    $config['full_tag_close']   = '</div>';
+    $config['display_pages'] = FALSE;
+    $config['first_link'] = FALSE;
+    $config['last_link'] = FALSE;
 
-    $config['next_link']        = 'Older Posts &rarr';
-    $config['next_tag_open']    = '<a class="btn btn-primary float-right">';
-    $config['next_tag_close']   = '</a>';
+    $config['next_link']        = 'Older Posts &rarr;';
+    $config['next_tag_open']    = '<button type="button" class="btn btn-primary float-right">';
+    $config['next_tag_close']   = '</button>';
 
-    $config['prev_link']        = 'Newest Posts &larr';
-    $config['prev_tag_open']    = '<a class="btn btn-primary float-left">';
-    $config['prev_tag_close']   = '</a>';
-    $config['attributes']       = array('class' => 'clearfix');
+    $config['prev_link']        = '&larr; Newest Posts';
+    $config['prev_tag_open']    = '<button type="button" class="btn btn-primary float-left">';
+    $config['prev_tag_close']   = '</button>';
 
     // GENERATE PAGE
     $this->pagination->initialize($config);

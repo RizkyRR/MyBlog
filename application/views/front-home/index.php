@@ -49,10 +49,9 @@
       <?php endif; ?>
 
       <!-- Pager -->
-      <!-- <div class="clearfix">
-        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-      </div> -->
-      <?php echo $pagination; ?>
+      <div class="clearfix">
+        <?php echo $pagination; ?>
+      </div>
     </div>
   </div>
 </div>

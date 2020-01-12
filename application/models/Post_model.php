@@ -15,6 +15,17 @@ class Post_model extends CI_Model
     return $query->num_rows();
   }
 
+  public function getShowPostCountPage()
+  {
+    $this->db->select('*');
+    $this->db->from('blog');
+    $this->db->join('category', 'category.category_id = blog.category_id', 'inner');
+    $this->db->where('active', "Active");
+
+    $query = $this->db->get();
+    return $query->num_rows();
+  }
+
   public function getAllPost($limit, $offset, $keyword)
   {
     $this->db->select('*, blog.slug as b_slug');
