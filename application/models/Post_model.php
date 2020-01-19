@@ -21,6 +21,7 @@ class Post_model extends CI_Model
     $this->db->from('blog');
     $this->db->join('category', 'category.category_id = blog.category_id', 'inner');
     $this->db->where('active', "Active");
+    $this->db->where('pending', 0);
 
     $query = $this->db->get();
     return $query->num_rows();
@@ -53,6 +54,7 @@ class Post_model extends CI_Model
     $this->db->from('blog');
     $this->db->join('category', 'category.category_id = blog.category_id');
     $this->db->where('active', "Active");
+    $this->db->where('pending', 0);
 
     $this->db->order_by('created_at', 'desc');
 
@@ -112,6 +114,12 @@ class Post_model extends CI_Model
   public function updateBySlug($slug, $data)
   {
     $this->db->where('slug', $slug);
+    $this->db->update('blog', $data);
+  }
+
+  public function send($id, $data)
+  {
+    $this->db->where('blog_id', $id);
     $this->db->update('blog', $data);
   }
 

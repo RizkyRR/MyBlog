@@ -122,7 +122,7 @@ class Post extends CI_Controller
       'short_content' => substr($this->input->post('content', true), 0, 100),
       'content' => $this->input->post('content', true),
       'created_at' => date('Y-m-d H:i:s'),
-      'pending' => 0,
+      'pending' => 1,
       'public' => 1,
       'active' => $this->input->post('active_opt')
     ];
@@ -132,7 +132,7 @@ class Post extends CI_Controller
     } else {
       $this->Post_model->insert($file);
 
-      $this->session->set_flashdata('success', 'Your data has been added !');
+      $this->session->set_flashdata('success', 'The article has been saved and ready to post !');
       redirect('post ', 'refresh');
     }
   }
@@ -200,6 +200,19 @@ class Post extends CI_Controller
 
     $this->Post_model->delete($id);
     $this->session->set_flashdata('success', 'Your post has been deleted !');
+    redirect('post', 'refresh');
+  }
+
+  public function sendPost()
+  {
+    $id = $this->input->post('post_id');
+
+    $data = [
+      'pending' => 0
+    ];
+
+    $this->Post_model->send($id, $data);
+    $this->session->set_flashdata('success', 'Your article has been posted !');
     redirect('post', 'refresh');
   }
 }

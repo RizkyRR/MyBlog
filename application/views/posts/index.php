@@ -55,7 +55,7 @@
             <tr>
               <th>No</th>
               <th>Title</th>
-              <th>Slug</th>
+              <!-- <th>Slug</th> -->
               <th>Content</th>
               <th>Created At</th>
               <th>Active</th>
@@ -70,7 +70,7 @@
                 <tr>
                   <td><?php echo ++$start; ?></td>
                   <td><?php echo $val['title']; ?></td>
-                  <td><?php echo $val['b_slug']; ?></td>
+                  <!-- <td><?php echo $val['b_slug']; ?></td> -->
                   <td><?php echo $val['short_content']; ?></td>
                   <td><?php echo date('d M Y H:i:s', strtotime($val['created_at'])); ?></td>
                   <td>
@@ -86,6 +86,9 @@
                     <a href="<?php echo base_url() ?>post/deletepost/<?php echo $val['blog_id'] ?>" class="btn btn-sm btn-danger button-delete btn-circle" title="Delete Post"><i class="fas fa-trash"></i></a>
                     <a href="<?php echo base_url() ?>post/editpost/<?php echo $val['blog_id'] ?>" class="btn btn-sm btn-warning btn-circle" title="Edit Post"><i class="fas fa-pencil-alt"></i></a>
                     <a href="#" data-toggle="modal" data-target="#detail-modal<?php echo $val['blog_id'] ?>" class="btn btn-sm btn-info btn-circle" data-popup="tooltip" data-placement="top" title="Detail Post"><i class="fas fa-info"></i></a>
+                    <?php if ($val['pending'] == 1) : ?>
+                      <button type="button" name="send" id="<?php echo $val['blog_id'] ?>" class="btn btn-sm btn-success send-post btn-circle" title="Send Post"><i class="fas fa-paper-plane"></i></button>
+                    <?php endif; ?>
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -107,3 +110,25 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<script>
+  $(document).ready(function() {
+    $(document).on('click', '.send-post', function() {
+      var post_id = $(this).attr('id');
+      if (confirm("Are you sure you want to post this article?")) {
+        $.ajax({
+          url: "<?= base_url(); ?>post/sendpost",
+          method: 'POST',
+          data: {
+            post_id: post_id
+          },
+          success: function(data) {
+            window.location.reload();
+          }
+        })
+      } else {
+        return false;
+      }
+    });
+  });
+</script>
