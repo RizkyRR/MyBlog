@@ -80,7 +80,7 @@ class Message_Sent extends CI_Controller
 
     $this->Message_model->delete_sent($id);
     $this->session->set_flashdata('success', 'Message reply to ' . $getId['email'] . ' has been deleted !');
-    redirect('message_sent', 'refresh');
+    redirect('Message_Sent', 'refresh');
   }
 }
   

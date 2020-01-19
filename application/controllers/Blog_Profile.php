@@ -63,7 +63,7 @@ class Blog_Profile extends CI_Controller
       }
 
       $this->session->set_flashdata('success', 'Your data has been updated !');
-      redirect('blog_profile', 'refresh');
+      redirect('Blog_Profile', 'refresh');
     }
   }
 

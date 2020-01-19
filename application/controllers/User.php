@@ -79,11 +79,11 @@ class User extends CI_Controller
 
       if (!password_verify($old_pass, $info['user']['password'])) {
         $this->session->set_flashdata('error', 'Wrong current password !');
-        redirect('user/changepassowrd', 'refresh');
+        redirect('user/changepassword', 'refresh');
       } else {
         if ($old_pass == $newpass) {
           $this->session->set_flashdata('error', 'New password cannot be the same as current password !');
-          redirect('user/changepassowrd', 'refresh');
+          redirect('user/changepassword', 'refresh');
         } else {
           $hash_pass = password_hash($newpass, PASSWORD_DEFAULT);
 
@@ -93,7 +93,7 @@ class User extends CI_Controller
 
           $this->User_model->updatePassword($data);
           $this->session->set_flashdata('success', 'Updated !');
-          redirect('user/changepassowrd', 'refresh');
+          redirect('user/changepassword', 'refresh');
         }
       }
     }

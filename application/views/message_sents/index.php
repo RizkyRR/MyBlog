@@ -64,7 +64,7 @@
                   <td><?php echo $val['message_reply']; ?></td>
                   <td><?php echo date('d M Y H:i:s', strtotime($val['reply_at'])); ?></td>
                   <td>
-                    <a href="<?php echo base_url() ?>message_sent/delete/<?php echo $val['id'] ?>" class="btn btn-sm btn-danger button-delete btn-circle" title="Delete Message"><i class="fas fa-trash"></i></a>
+                    <a href="<?php echo base_url() ?>Message_Sent/delete/<?php echo $val['id'] ?>" class="btn btn-sm btn-danger button-delete btn-circle" title="Delete Message"><i class="fas fa-trash"></i></a>
                     <a href="#" data-toggle="modal" data-target="#detail-modal<?php echo $val['id'] ?>" class="btn btn-sm btn-info btn-circle" data-popup="tooltip" data-placement="top" title="Detail Message"><i class="fas fa-info"></i></a>
                   </td>
                 </tr>
