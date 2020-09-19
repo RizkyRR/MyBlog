@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+date_default_timezone_set('Asia/Jakarta');
 
 /*
 | -------------------------------------------------------------------
@@ -60,7 +61,7 @@ $autoload['packages'] = array();
 */
 $autoload['libraries'] = array(
   'database', 'session',
-  'form_validation', 'pagination'
+  'form_validation', 'pagination', 'user_agent'
 );
 
 /*
@@ -135,4 +136,14 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Admin_model', 'Auth_model', 'User_model', 'Menu_model', 'Profile_model', 'Category_model', 'Post_model', 'Comment_model', 'Message_model');
+$autoload['model'] = array(
+  'Admin_model' => 'admin',
+  'Auth_model' => 'auth',
+  'User_model' => 'user',
+  'Menu_model' => 'menu',
+  'Profile_model' => 'profile',
+  'Category_model' => 'category',
+  'Post_model' => 'post',
+  'Comment_model' => 'comment',
+  'Message_model' => 'message'
+);

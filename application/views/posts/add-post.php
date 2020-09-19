@@ -6,7 +6,7 @@
 
   <section class="content-header">
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-12">
         <?php if ($this->session->flashdata('success')) { ?>
           <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -50,7 +50,7 @@
           </div>
 
           <div class="form-group">
-            <label for="image">Picture</label>
+            <label for="image">Picture <small class="form-text text-info">Max File Size: 1MB</small></label>
             <div class="row col-md-6">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" name="image" id="image" required>
@@ -107,3 +107,11 @@
 
 </div>
 <!-- /.container-fluid -->
+
+
+<script>
+  CKEDITOR.replace('textckeditor', {
+    height: 400,
+    baseFloatZIndex: 10005
+  });
+</script>

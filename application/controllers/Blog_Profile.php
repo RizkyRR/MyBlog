@@ -15,11 +15,11 @@ class Blog_Profile extends CI_Controller
   public function index()
   {
     $info['title'] = "Blog Profile";
-    $info['user'] = $this->Auth_model->getUserSession();
-    $info['link'] = $this->Profile_model->getSocialLink();
+    $info['user'] = $this->auth->getUserSession();
+    $info['link'] = $this->profile->getSocialLink();
 
-    $data = $this->Profile_model->getProfileById(1);
-    $data_detail = $this->Profile_model->getProfileDetailById($data['id']);
+    $data = $this->profile->getProfileById(1);
+    $data_detail = $this->profile->getProfileDetailById($data['id']);
 
     if ($data_detail > 0) {
       foreach ($data_detail as $val) {
@@ -44,7 +44,7 @@ class Blog_Profile extends CI_Controller
     if ($this->form_validation->run() == FALSE) {
       renderTemplate('admins/blog-profile', $info);
     } else {
-      $this->Profile_model->update(1, $file);
+      $this->profile->update(1, $file);
 
       // remove the blog profile detail
       $this->db->where('blog_profile_id', 1);
@@ -59,7 +59,7 @@ class Blog_Profile extends CI_Controller
           'url' => $this->input->post('url')[$i]
         ];
 
-        $this->Profile_model->insertProfileDetail($links);
+        $this->profile->insertProfileDetail($links);
       }
 
       $this->session->set_flashdata('success', 'Your data has been updated !');
@@ -69,7 +69,7 @@ class Blog_Profile extends CI_Controller
 
   public function getTableLinkRow()
   {
-    $link = $this->Profile_model->getSocialLink();
+    $link = $this->profile->getSocialLink();
     echo json_encode($link);
   }
 }

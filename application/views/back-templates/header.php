@@ -20,19 +20,54 @@
   <link href="<?php echo base_url(); ?>back-assets/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="<?php echo base_url(); ?>back-assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
-
-  <script src="https://cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
   <link href="<?php echo base_url(); ?>back-assets/css/select2-bootstrap.min.css" rel="stylesheet">
+
+  <!-- DataTables -->
+  <link href="<?php echo base_url(); ?>back-assets/datatables/datatables.min.css" rel="stylesheet">
+
+  <!-- Dropzone CSS -->
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'back-assets/dropzone/min/dropzone.min.css'; ?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'back-assets/dropzone/min/basic.min.css'; ?>">
+
+
+
+  <!-- JavaScript Plugins -->
+  <!-- CLOSE ALERT AUTOMATICALLY -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="<?php echo base_url(); ?>back-assets/vendor/jquery/jquery.min.js"></script>
 
-  <!-- Custom styles for this page -->
-  <!-- <link href="<?php echo base_url(); ?>back-assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
+  <script src="<?php echo base_url(); ?>back-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Page level plugins -->
-  <!-- <script src="<?php echo base_url(); ?>back-assets/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="<?php echo base_url(); ?>back-assets/vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
+  <!-- Core plugin JavaScript-->
+  <script src="<?php echo base_url(); ?>back-assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="<?php echo base_url(); ?>back-assets/js/sb-admin-2.min.js"></script>
+
+  <!-- Custom Script -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.1/dist/sweetalert2.all.min.js"></script>
+
+  <script src="<?php echo base_url(); ?>back-assets/js/bootstrap-datepicker.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="<?php echo base_url(); ?>back-assets/js/detail-time-order.js"></script>
+  <script src="<?php echo base_url(); ?>back-assets/js/select2.full.min.js"></script>
+  <!-- <script src="<?php echo base_url(); ?>back-assets/js/message-alert.js"></script>
+      <script src="<?php echo base_url(); ?>back-assets/js/comment-alert.js"></script> -->
+
+  <!-- DataTables -->
+  <script src="<?php echo base_url(); ?>back-assets/datatables/datatables.min.js"></script>
+
+  <!-- Validator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
+
+  <!-- CKEditor -->
+  <script src="https://cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
+
+  <!-- Dropzone Js -->
+  <script type="text/javascript" src="<?php echo base_url() . 'back-assets/dropzone/min/dropzone.min.js'; ?>"></script>
 </head>
 
 <body id="page-top">

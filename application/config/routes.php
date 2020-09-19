@@ -52,3 +52,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['404_override'] = 'error_404';
 $route['translate_uri_dashes'] = FALSE;
+
+// CUSTOM URL   
+$route['category-menu'] = 'Category/index';
+$route['category-data'] = 'Category/getCategoryDatatables';
+$route['category-add'] = 'Category/addCategory';
+$route['category-edit/(:any)'] = 'Category/editCategory/$1';
+$route['category-update'] = 'Category/updateCategory';
+$route['category-delete/(:any)'] = 'Category/deleteCategory/$1';
+
+$route['blog-post-menu'] = 'Post/index';
+$route['blog-post-data'] = 'Post/getPostDatatables';
+$route['blog-post-add'] = 'Post/addpost';
+$route['blog-post-send'] = 'Post/sendpost';
+$route['blog-post-delete/(:any)'] = 'Post/deletepost/$1';
+$route['blog-post-edit/(:any)'] = 'Post/editpost/$1';

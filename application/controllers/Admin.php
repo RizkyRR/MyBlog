@@ -13,22 +13,22 @@ class Admin extends CI_Controller
   public function index()
   {
     $info['title']  = 'Dashboard';
-    $info['user']   = $this->Auth_model->getUserSession();
+    $info['user']   = $this->auth->getUserSession();
 
     // GET COUNT POST
-    $info['count_post'] = $this->Admin_model->getPostCount();
+    $info['count_post'] = $this->admin->getPostCount();
 
     // GET COUNT MESSAGE
-    $info['count_message'] = $this->Admin_model->getMessageCount();
+    $info['count_message'] = $this->admin->getMessageCount();
 
     // GET COUNT COMMENT
-    $info['count_comment'] = $this->Admin_model->getCommentCount();
+    $info['count_comment'] = $this->admin->getCommentCount();
 
     // GET COUNT VISITOR
     // https://stackoverflow.com/questions/37222184/codeigniter-how-to-do-hit-counter-for-each-news[/link]
     // https://stackoverflow.com/questions/31684064/hit-counter-in-codeigniter
     // https://stackoverflow.com/questions/13780817/visit-counter-stored-to-a-file-using-codeigniter
-    $info['count_visitor'] = $this->Admin_model->geVisitorCount();
+    $info['count_visitor'] = $this->admin->geVisitorCount();
 
     renderTemplate('admins/index', $info);
   }

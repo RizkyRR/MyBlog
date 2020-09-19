@@ -15,7 +15,7 @@ class Message_Sent extends CI_Controller
   public function index()
   {
     $info['title'] = "Message Sent";
-    $info['user'] = $this->Auth_model->getUserSession();
+    $info['user'] = $this->auth->getUserSession();
 
     // SEARCHING
     if ($this->input->post('search', true)) {
@@ -31,7 +31,7 @@ class Message_Sent extends CI_Controller
 
     // PAGINATION
     $config['base_url']     = base_url() . 'message_sent/index';
-    $config['total_rows']   = $this->Message_model->getSentCountPage();
+    $config['total_rows']   = $this->message->getSentCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5;
 
@@ -66,7 +66,7 @@ class Message_Sent extends CI_Controller
     $this->pagination->initialize($config);
 
     $info['start']   = $this->uri->segment(3);
-    $info['message_sent']    = $this->Message_model->getAllMessageSent($config['per_page'], $info['start'], $info['keyword']);
+    $info['message_sent']    = $this->message->getAllMessageSent($config['per_page'], $info['start'], $info['keyword']);
 
     $info['pagination'] = $this->pagination->create_links();
 
@@ -76,9 +76,9 @@ class Message_Sent extends CI_Controller
 
   public function delete($id)
   {
-    $getId = $this->Message_model->getMessageById($id);
+    $getId = $this->message->getMessageById($id);
 
-    $this->Message_model->delete_sent($id);
+    $this->message->delete_sent($id);
     $this->session->set_flashdata('success', 'Message reply to ' . $getId['email'] . ' has been deleted !');
     redirect('Message_Sent', 'refresh');
   }

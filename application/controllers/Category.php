@@ -4,112 +4,142 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Category extends CI_Controller
 {
-
-
   public function __construct()
   {
     parent::__construct();
     checkSessionLog();
   }
 
-
   public function index()
   {
     $info['title'] = "Category";
-    $info['user'] = $this->Auth_model->getUserSession();
+    $info['user'] = $this->auth->getUserSession();
+    $info['profile'] = $this->profile->getProfileById(1);
 
-    // SEARCHING
-    if ($this->input->post('search', true)) {
-      $info['keyword'] = $this->input->post('search', true);
-      $this->session->set_userdata('keyword', $info['keyword']);
-    } else {
-      $info['keyword'] = $this->session->set_userdata('keyword');
+    $this->load->view('back-templates/header', $info);
+    $this->load->view('back-templates/sidebar', $info);
+    $this->load->view('back-templates/topbar', $info);
+    $this->load->view('categories/index', $info);
+    $this->load->view('modals/category-modal');
+    $this->load->view('back-templates/footer');
+  }
+
+  public function getCategoryDatatables()
+  {
+    $list = $this->category->getCategoryDatatables();
+    $data = array();
+    $no = @$_POST['start'];
+    foreach ($list as $item) {
+      $no++;
+      $row = array();
+      $row[] = $no . ".";
+      $row[] = $item->name;
+      $row[] = $item->slug;
+
+      if ($item->visible == "visible") {
+        $status = '<p class="badge badge-success">Visible</p>';
+      } else {
+        $status = "<p class='badge badge-danger'>Invisible</p>";
+      }
+
+      $row[] = $status;
+
+      // add html for action
+      $row[] = '<a href="javascript:void(0)" class="btn btn-sm btn-warning btn-circle" onclick="editCategory(' . $item->category_id . ')" title="edit data"><i class="fas fa-pencil-alt"></i></a>
+
+        <!-- <a href="javascript:void(0)" onclick="deleteCategory(' . $item->category_id . ')" class="btn btn-danger btn-xs" title="delete data"><i class="fa fa-trash-o"></i> Delete</a> -->';
+
+      $data[] = $row;
     }
+    $output = array(
+      "draw" => @$_POST['draw'],
+      "recordsTotal" => $this->category->count_all(),
+      "recordsFiltered" => $this->category->count_filtered(),
+      "data" => $data,
+    );
 
-    // DB PAGINATION FOR SEARCHING
-    $this->db->like('category_id', $info['keyword']);
-    $this->db->or_like('name', $info['keyword']);
-
-    // PAGINATION
-    $config['base_url']     = base_url() . 'category/index';
-    $config['total_rows']   = $this->Category_model->getCountPage();
-    $config['per_page']     = 10;
-    $config['num_links']    = 5;
-
-    // STYLING
-    $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination">';
-    $config['full_tag_close']   = '</ul></nav></div>';
-
-    $config['first_link']       = 'First';
-    $config['first_tag_open']   = '<li class="page-item">';
-    $config['first_tag_close']  = '</li>';
-
-    $config['last_link']        = 'Last';
-    $config['last_tag_open']    = '<li class="page-item">';
-    $config['last_tag_close']   = '</li>';
-
-    $config['next_link']        = '&raquo';
-    $config['next_tag_open']    = '<li class="page-item">';
-    $config['next_tag_close']   = '</li>';
-
-    $config['prev_link']        = '&laquo';
-    $config['prev_tag_open']    = '<li class="page-item">';
-    $config['prev_tag_close']   = '</li>';
-
-    $config['cur_tag_open']     = '<li class="page-item active"><a class="page-link">';
-    $config['cur_tag_close']    = '</a></li>';
-
-    $config['num_tag_open']     = '<li class="page-item">';
-    $config['num_tag_close']    = '</li>';
-    $config['attributes']       = array('class' => 'page-link');
-
-    // GENERATE PAGE
-    $this->pagination->initialize($config);
-
-    $info['start']   = $this->uri->segment(3);
-    $info['category']    = $this->Category_model->getAllCategory($config['per_page'], $info['start'], $info['keyword']);
-
-    $info['pagination'] = $this->pagination->create_links();
-
-    // PASSING DATA
-    renderTemplate('categories/index', $info);
+    // output to json format
+    echo json_encode($output);
   }
 
   public function category_data()
   {
-    $data = $this->Category_model->getCategory();
+    $data = $this->category->getCategory();
     echo json_encode($data);
   }
 
-  public function addNew()
+  public function addCategory()
   {
-    $info['title'] = "Add Category";
-    $info['user'] = $this->Auth_model->getUserSession();
+    $response = array();
+    $info['user'] = $this->auth->getUserSession();
 
-    $this->form_validation->set_rules('name', 'category name', 'trim|required|min_length[5]|is_unique[category.name]', [
-      'is_unique' => 'category has been registered, please use another category.'
-    ]);
+    if ($this->input->post('category_visible', true) != null) {
+      $status = 'visible'; // if condition not null it means checked
+    } else {
+      $status = 'invisible';
+    }
 
-    $file = [
-      'name' => $this->security->xss_clean(html_escape($this->input->post('name', true))),
-      'slug' => set_slug($this->input->post('name', true)),
-      'visible' => $this->security->xss_clean(html_escape($this->input->post('visible', true)))
+    $data = [
+      'name' => $this->input->post('category_name', true),
+      'slug' => set_slug($this->input->post('category_name', true)),
+      'visible' => $status
     ];
 
-    if ($this->form_validation->run() == FALSE) {
-      renderTemplate('categories/add-category', $info);
+    $insert = $this->category->insert($data);
+
+    if ($insert > 0) {
+      $response['status'] = 'true';
+      $response['message'] = 'Category has been saved!';
     } else {
-      $this->Category_model->insert($file);
-      $this->session->set_flashdata('success', 'Your data has been added !');
-      redirect('category', 'refresh');
+      $response['status'] = 'false';
+      $response['message'] = 'Category failed to save, please try again!';
     }
+
+    echo json_encode($response);
+  }
+
+  public function editCategory($id)
+  {
+    $data = $this->category->getCategoryById($id);
+    echo json_encode($data);
+  }
+
+  public function updateCategory()
+  {
+    $response = array();
+
+    $id = $this->input->post('category_id');
+
+    if ($this->input->post('category_visible', true) != null) {
+      $status = 'visible'; // if condition not null it means checked
+    } else {
+      $status = 'invisible';
+    }
+
+    $data = [
+      'name' => $this->input->post('category_name', true),
+      'slug' => set_slug($this->input->post('category_name', true)),
+      'visible' => $status
+    ];
+
+    $update = $this->category->update($id, $data);
+
+    if ($update > 0) {
+      $response['status'] = 'true';
+      $response['message'] = 'Category has been updated!';
+    } else {
+      $response['status'] = 'false';
+      $response['message'] = 'Category failed to update, please trye again!';
+    }
+
+    echo json_encode($response);
   }
 
   public function edit($id)
   {
     $info['title']     = 'Edit Category';
-    $info['user']      = $this->Auth_model->getUserSession();
-    $info['detail']    = $this->Category_model->getCategoryById($id);
+    $info['user']      = $this->auth->getUserSession();
+    $info['detail']    = $this->category->getCategoryById($id);
 
     $this->form_validation->set_rules('name', 'category name', 'trim|required|min_length[3]');
 
@@ -128,7 +158,7 @@ class Category extends CI_Controller
     if ($this->form_validation->run() == false) {
       renderTemplate('categories/edit-category', $info);
     } else {
-      $this->Category_model->update($id, $file);
+      $this->category->update($id, $file);
       $this->session->set_flashdata('success', 'Data category has been updated !');
       redirect('category', 'refresh');
     }
@@ -136,7 +166,7 @@ class Category extends CI_Controller
 
   public function delete($id)
   {
-    $this->Category_model->delete($id);
+    $this->category->delete($id);
     $this->session->set_flashdata('success', 'Data category has been deleted !');
     redirect('category', 'refresh');
   }

@@ -6,7 +6,7 @@
 
   <section class="content-header">
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-12">
         <?php if ($this->session->flashdata('success')) { ?>
           <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -60,6 +60,7 @@
               <div class="row">
                 <div class="col-sm-3">
                   <img src="<?php echo base_url() ?>back-assets/img/post_picture/<?= $data['picture']; ?>" class="img-fluid img-thumbnail">
+                  <input type="hidden" name="old_image" id="old_iamge" value="<?= $data['picture']; ?>">
                 </div>
                 <div class="col-sm-6">
                   <div class="custom-file">
@@ -125,3 +126,11 @@
 
 </div>
 <!-- /.container-fluid -->
+
+
+<script>
+  CKEDITOR.replace('textckeditor', {
+    height: 400,
+    baseFloatZIndex: 10005
+  });
+</script>

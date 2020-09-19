@@ -14,7 +14,7 @@ class Auth extends CI_Controller
     $email = $this->security->xss_clean(html_escape($this->input->post('email', true)));
     $pass  = $this->security->xss_clean(html_escape($this->input->post('password', true)));
 
-    $user = $this->Auth_model->userLogin($email);
+    $user = $this->auth->userLogin($email);
 
     if (password_verify($pass, $user['password'])) {
       $file = [
@@ -22,7 +22,7 @@ class Auth extends CI_Controller
       ];
 
       $this->session->set_userdata($file);
-      // $this->Auth_model->updateUserOnline($this->session->userdata('email'));
+      // $this->auth->updateUserOnline($this->session->userdata('email'));
 
 
       redirect('admin', 'refresh');
@@ -104,7 +104,7 @@ class Auth extends CI_Controller
         'is_active' => 1
       ];
 
-      if ($this->Auth_model->checkUserEmail($data)) {
+      if ($this->auth->checkUserEmail($data)) {
         $token = base64_encode(random_bytes(32));
 
         $user_token = [
@@ -113,7 +113,7 @@ class Auth extends CI_Controller
           'created_at'  => time()
         ];
 
-        $this->Auth_model->insertChangePass($user_token);
+        $this->auth->insertChangePass($user_token);
         $this->_sendEmail($token, 'forgot');
 
         $this->session->set_flashdata('success', 'please check your email to reset your password !');
@@ -166,8 +166,8 @@ class Auth extends CI_Controller
       $hash_pass  = password_hash($password, PASSWORD_DEFAULT);
       $email     = $this->session->userdata('reset_email');
 
-      $this->Auth_model->updateUserPass($hash_pass, $email);
-      $this->Auth_model->deleteUserToken($email);
+      $this->auth->updateUserPass($hash_pass, $email);
+      $this->auth->deleteUserToken($email);
 
       $this->session->unset_userdata('reset_email');
 
@@ -179,7 +179,7 @@ class Auth extends CI_Controller
   // logout()
   public function logout()
   {
-    // $this->Auth_model->updateUserOffline($this->session->userdata('email'));
+    // $this->auth->updateUserOffline($this->session->userdata('email'));
 
     $this->session->unset_userdata('email');
     // $this->session->unset_userdata('role_id');

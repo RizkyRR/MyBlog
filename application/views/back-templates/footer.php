@@ -40,26 +40,10 @@
         </div>
       </div>
       </body>
-      <!-- CLOSE ALERT AUTOMATICALLY -->
-      <!-- <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-      <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script> -->
-
-
-      <script src="<?php echo base_url(); ?>back-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-      <!-- Core plugin JavaScript-->
-      <script src="<?php echo base_url(); ?>back-assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-      <!-- Custom scripts for all pages-->
-      <script src="<?php echo base_url(); ?>back-assets/js/sb-admin-2.min.js"></script>
-
-      <!-- Custom Script -->
-      <script src="<?php echo base_url(); ?>back-assets/sweet_alert/dist/sweetalert2.all.min.js"></script>
-      <script src="<?php echo base_url(); ?>back-assets/js/bootstrap-datepicker.min.js"></script>
 
       <script>
         window.setTimeout(function() {
-          $(".alert").fadeTo(3000, 500).slideUp(500, function() {
+          $(".alert").fadeTo(5000, 500).slideUp(500, function() {
             $(this).remove();
           });
         })
@@ -70,13 +54,6 @@
         $(".custom-file-input").on("change", function() {
           var fileName = $(this).val().split("\\").pop();
           $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-      </script>
-
-      <script>
-        CKEDITOR.replace('textckeditor', {
-          height: 400,
-          baseFloatZIndex: 10005
         });
       </script>
 
@@ -230,11 +207,5 @@
           });
         }
       </script>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-      <script src="<?php echo base_url(); ?>back-assets/js/detail-time-order.js"></script>
-      <script src="<?php echo base_url(); ?>back-assets/js/select2.full.min.js"></script>
-      <!-- <script src="<?php echo base_url(); ?>back-assets/js/message-alert.js"></script>
-      <script src="<?php echo base_url(); ?>back-assets/js/comment-alert.js"></script> -->
 
       </html>

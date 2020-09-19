@@ -16,7 +16,7 @@ class Message extends CI_Controller
   public function index()
   {
     $info['title'] = "Message";
-    $info['user'] = $this->Auth_model->getUserSession();
+    $info['user'] = $this->auth->getUserSession();
 
     // SEARCHING
     if ($this->input->post('search', true)) {
@@ -34,7 +34,7 @@ class Message extends CI_Controller
 
     // PAGINATION
     $config['base_url']     = base_url() . 'message/index';
-    $config['total_rows']   = $this->Message_model->getMessageCountPage();
+    $config['total_rows']   = $this->message->getMessageCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5;
 
@@ -69,7 +69,7 @@ class Message extends CI_Controller
     $this->pagination->initialize($config);
 
     $info['start']   = $this->uri->segment(3);
-    $info['message']    = $this->Message_model->getAllMessage($config['per_page'], $info['start'], $info['keyword']);
+    $info['message']    = $this->message->getAllMessage($config['per_page'], $info['start'], $info['keyword']);
 
     $info['pagination'] = $this->pagination->create_links();
 
@@ -131,8 +131,8 @@ class Message extends CI_Controller
   public function reply($id)
   {
     $info['title'] = 'Reply Message';
-    $info['user'] = $this->Auth_model->getUserSession();
-    $info['data'] = $this->Message_model->getMessageById($id);
+    $info['user'] = $this->auth->getUserSession();
+    $info['data'] = $this->message->getMessageById($id);
 
     $getId = $info['data'];
 
@@ -148,13 +148,13 @@ class Message extends CI_Controller
     } else {
       $this->_sendEmail($this->input->post('email'), $this->input->post('message_reply'));
 
-      $this->Message_model->send($file);
+      $this->message->send($file);
 
       $isreply = [
         'is_reply' => 1
       ];
 
-      $this->Message_model->update($id, $isreply);
+      $this->message->update($id, $isreply);
 
       $this->session->set_flashdata('success', 'Message from ' . $getId['email'] . ' has been sent !');
       redirect('message', 'refresh');
@@ -163,21 +163,21 @@ class Message extends CI_Controller
 
   public function message_count_data()
   {
-    $data = $this->Message_model->getNewMessageCount();
+    $data = $this->message->getNewMessageCount();
     echo json_encode($data);
   }
 
   public function message_notif_data()
   {
-    $data = $this->Message_model->getNewMessageInfo();
+    $data = $this->message->getNewMessageInfo();
     echo json_encode($data);
   }
 
   public function delete($id)
   {
-    $getId = $this->Message_model->getMessageById($id);
+    $getId = $this->message->getMessageById($id);
 
-    $this->Message_model->delete($id);
+    $this->message->delete($id);
     $this->session->set_flashdata('success', 'Message from ' . $getId['email'] . ' has been deleted !');
     redirect('message', 'refresh');
   }

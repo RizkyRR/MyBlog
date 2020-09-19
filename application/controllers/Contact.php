@@ -24,7 +24,7 @@ class Contact extends CI_Controller
       'is_reply' => 0
     ];
 
-    $this->Message_model->insert($data);
+    $this->message->insert($data);
 
     // Try trigger with pusher
     // http://mfikri.com/artikel/crud-realtime-codeigniter

@@ -165,4 +165,10 @@
   function removeRow(tr_id) {
     $("#link_info_table tbody tr#row_" + tr_id).remove();
   }
+
+
+  CKEDITOR.replace('textckeditor', {
+    height: 400,
+    baseFloatZIndex: 10005
+  });
 </script>

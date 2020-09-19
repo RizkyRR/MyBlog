@@ -7,39 +7,13 @@
 
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <div class="d-sm-flex mt-4">
-      <a href="<?php echo base_url() ?>category/addnew" class="btn btn-success"><i class="fa fa-plus"></i> Category</a>
-    </div>
-    <div class="d-sm-flex mt-4">
-      <!-- search form -->
-      <form action="" method="post">
-        <div class="input-group">
-          <input type="text" name="search" id="search" class="form-control" placeholder="Search..." autocomplete="off" autofocus>
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
-          </div>
-        </div>
-      </form>
-      <!-- /.search form -->
+      <button onclick="addCategory()" id="btnAddCategory" class="btn btn-primary"><i class="fa fa-plus"></i> Category</button>
     </div>
   </div>
 
   <section class="content-header">
     <div class="row">
-      <div class="col-lg-12">
-        <?php if ($this->session->flashdata('success')) { ?>
-          <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4><i class="icon fa fa-check"></i> Alert!</h4>
-            <?php echo $this->session->flashdata('success'); ?>
-          </div>
-        <?php } else if ($this->session->flashdata('error')) { ?>
-          <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-            <?php echo $this->session->flashdata('error'); ?>
-          </div>
-        <?php } ?>
-      </div>
+      <div class="col-lg-12 msg-alert"></div>
     </div>
   </section>
 
@@ -47,7 +21,7 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="table-data-category" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>No</th>
@@ -57,44 +31,257 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            <?php
-            if ($category) :
-              foreach ($category as $val) : ?>
-                <tr>
-                  <td><?php echo ++$start; ?></td>
-                  <td><?php echo $val['name']; ?></td>
-                  <td><?php echo $val['slug']; ?></td>
-                  <td>
-                    <?php
-                    if ($val['visible'] == 1) {
-                      echo "<p class='badge badge-success'>Active</p>";
-                    } else {
-                      echo "<p class='badge badge-danger'>Inactive</p>";
-                    }
-                    ?>
-                  </td>
-                  <td>
-                    <!-- <a href="<?php echo base_url() ?>category/delete/<?php echo $val['category_id'] ?>" class="btn btn-sm btn-danger button-delete btn-circle" title="Delete Category"><i class="fas fa-trash"></i></a> -->
-                    <a href="<?php echo base_url() ?>category/edit/<?php echo $val['category_id'] ?>" class="btn btn-sm btn-warning btn-circle" title="Edit Category"><i class="fas fa-pencil-alt"></i></a>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-            <?php else : ?>
-              <tr>
-                <td colspan="5" style="text-align: center">Data not found !</td>
-              </tr>
-            <?php endif; ?>
+          <tbody id="show-data-category">
+
           </tbody>
         </table>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <?php echo $pagination; ?>
-        </div>
       </div>
     </div>
   </div>
 
 </div>
 <!-- /.container-fluid -->
+
+<script type="text/javascript">
+  var save_method; //for save method string
+  var table;
+
+  $(document).ready(function() {
+    table = $('#table-data-category').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "ajax": {
+        "url": "<?= base_url(); ?>category-data",
+        "type": "POST"
+      },
+      "columnDefs": [{
+        "targets": [0, 4],
+        "orderable": false,
+        "searchable": false
+      }],
+      'order': []
+    });
+
+    //set input/textarea/select event when change value, remove class error and remove text help block 
+    $("input").change(function() {
+      $(this).parent().parent().removeClass('has-error');
+      $(this).next().empty();
+    });
+    $("textarea").change(function() {
+      $(this).parent().parent().removeClass('has-error');
+      $(this).next().empty();
+    });
+    $("select").change(function() {
+      $(this).parent().parent().removeClass('has-error');
+      $(this).next().empty();
+    });
+
+    $('#category-visible').val('visible').attr('checked', true);
+
+    $('#category-visible').change(function() {
+      if ($('#category-visible').val() == "visible") {
+        $('#category-visible').val('invisible').attr('checked', false);
+      } else {
+        $('#category-visible').val('visible').attr('checked', true);
+      }
+    });
+
+    $.validator.setDefaults({
+      highlight: function(element) {
+        $(element).closest(".form-group").addClass("has-error");
+      },
+      unhighlight: function(element) {
+        $(element).closest(".form-group").removeClass("has-error");
+      },
+      errorElement: "small",
+      errorClass: "error-message",
+      errorPlacement: function(error, element) {
+        if (element.parent(".input-group").length) {
+          error.insertAfter(element.parent());
+        } else {
+          error.insertAfter(element);
+        }
+      },
+    });
+
+    var $validator = $("#form-category").validate({
+      focusInvalid: false,
+      rules: {
+        category_name: {
+          required: true,
+          minlength: 3
+        },
+      },
+      messages: {
+        category_name: {
+          required: "Category name is required!",
+          minlength: "Minimum of 3 characters"
+        },
+      },
+    });
+  });
+
+  function effect_msg() {
+    // $('.msg-alert').hide();
+    $('.msg-alert').show(1000);
+    setTimeout(function() {
+      $('.msg-alert').fadeOut(1000);
+    }, 3000);
+  }
+
+  function addCategory() {
+    save_method = 'add';
+    $('#form-category')[0].reset(); // reset form on modals
+
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.text-danger').empty(); // clear error string
+
+    $('#modal-category').modal('show'); // show bootstrap modal
+    $('.modal-title').text('Add Category'); // Set Title to Bootstrap modal title
+  }
+
+  function editCategory(id) {
+    save_method = 'update';
+    $('#form-category')[0].reset(); // reset form on modals
+
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.text-danger').empty(); // clear error string
+
+    //Ajax Load data from ajax
+    $.ajax({
+      url: "<?php echo base_url() ?>category-edit/" + id,
+      type: "GET",
+      dataType: "JSON",
+      success: function(data) {
+
+        /* $('[name="id"]').val(data.id);
+        $('[name="name"]').val(data.category_name); */
+        $('#category_id').val(data.category_id);
+        $('#category_name').val(data.name);
+
+        if (data.visible == "visible") {
+          $('#category-visible').prop('checked', true);
+        } else {
+          $('#category-visible').prop('checked', false);
+        }
+
+        $('#modal-category').modal('show'); // show bootstrap modal when complete loaded
+        $('.modal-title').text('Edit Data Category'); // Set title to Bootstrap modal title
+
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        Swal.fire({
+          icon: "error",
+          title: 'Error get data from ajax, please refresh page!',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+    });
+  }
+
+  function save() {
+    $('#btnSave').text('Saving...'); //change button text
+    $('#btnSave').attr('disabled', true); //set button disable 
+    var url;
+
+    if (save_method == 'add') {
+      url = "<?php echo base_url() ?>category-add";
+    } else {
+      url = "<?php echo base_url() ?>category-update";
+    }
+
+    var $valid = $("#form-category").valid();
+    if (!$valid) {
+      // $validator.focusInvalid();
+      $("#btnSave").text("Save"); //change button text
+      $("#btnSave").attr("disabled", false); //set button enable
+      return false;
+    } else {
+      // ajax adding data to database
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: $('#form-category').serialize(),
+        dataType: "JSON",
+        success: function(data) {
+          if (data.status == 'true') //if success close modal and reload ajax table
+          {
+            $('#modal-category').modal('hide');
+
+            table.ajax.reload(null, false);
+
+            Swal.fire({
+              icon: 'success',
+              title: data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+
+          $('#btnSave').text('Save'); //change button text
+          $('#btnSave').attr('disabled', false); //set button enable 
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          Swal.fire({
+            icon: "error",
+            title: textStatus,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+
+          $('#btnSave').text('Save'); //change button text
+          $('#btnSave').attr('disabled', false); //set button enable 
+        }
+      });
+    }
+  }
+
+  function deleteCategory(id) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          url: '<?php echo base_url() ?>category-delete/' + id,
+          type: 'POST',
+          dataType: 'JSON',
+          success: function(data) {
+            if (data.status == true) {
+              Swal.fire({
+                icon: "success",
+                title: "Successfully deleted your category!",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Failed deleted your category, please try again!",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+
+            table.ajax.reload(null, false);
+            effect_msg();
+          }
+        });
+      }
+    });
+  }
+</script>
