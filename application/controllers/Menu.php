@@ -17,7 +17,7 @@ class Menu extends CI_Controller
   public function index()
   {
     $info['title']     = 'Management Menu';
-    $info['user']    = $this->auth->getUserSession();
+    $info['user']    = $this->auth_model->getUserSession();
 
     // SEARCHING
     if ($this->input->post('search', true)) {
@@ -34,7 +34,7 @@ class Menu extends CI_Controller
     // DB PAGINATION FOR SEARCHING
 
     $config['base_url']     = base_url() . 'menu/index';
-    $config['total_rows']   = $this->menu->getMenuCountPage();
+    $config['total_rows']   = $this->menu_model->getMenuCountPage();
     $config['per_page']     = 5;
     $config['num_links']    = 5;
 
@@ -69,7 +69,7 @@ class Menu extends CI_Controller
     $this->pagination->initialize($config);
 
     $info['start']   = $this->uri->segment(3);
-    $info['menu']    = $this->menu->getAllMenu($config['per_page'], $info['start'], $info['keyword']);
+    $info['menu']    = $this->menu_model->getAllMenu($config['per_page'], $info['start'], $info['keyword']);
 
     $info['pagination'] = $this->pagination->create_links();
 
@@ -79,7 +79,7 @@ class Menu extends CI_Controller
   public function addMenu()
   {
     $info['title']    = "Add New Menu";
-    $info['user']    = $this->auth->getUserSession();
+    $info['user']    = $this->auth_model->getUserSession();
 
     $this->form_validation->set_rules('name', 'menu name', 'trim|required|min_length[3]');
 
@@ -90,7 +90,7 @@ class Menu extends CI_Controller
     if ($this->form_validation->run() == false) {
       renderTemplate('menus/add_menu', $info);
     } else {
-      $this->menu->insertMenu($data);
+      $this->menu_model->insertMenu($data);
       $this->session->set_flashdata('success', 'Added !');
       redirect('menu', 'refresh');
     }
@@ -99,8 +99,8 @@ class Menu extends CI_Controller
   public function editMenu($id)
   {
     $info['title']     = 'Edit Menu';
-    $info['user']      = $this->auth->getUserSession();
-    $info['id']        = $this->menu->getMenuById($id);
+    $info['user']      = $this->auth_model->getUserSession();
+    $info['id']        = $this->menu_model->getMenuById($id);
 
     $this->form_validation->set_rules('name', 'menu name', 'trim|required|min_length[3]');
 
@@ -109,7 +109,7 @@ class Menu extends CI_Controller
     if ($this->form_validation->run() == false) {
       renderTemplate('menus/edit_menu', $info);
     } else {
-      $this->menu->updateMenu($file);
+      $this->menu_model->updateMenu($file);
       $this->session->set_flashdata('success', 'Updated !');
       redirect('menu', 'refresh');
     }
@@ -117,7 +117,7 @@ class Menu extends CI_Controller
 
   public function deleteMenu($id)
   {
-    $this->menu->deleteMenu($id);
+    $this->menu_model->deleteMenu($id);
     $this->session->set_flashdata('success', 'Deleted !');
     redirect('menu', 'refresh');
   }
@@ -129,7 +129,7 @@ class Menu extends CI_Controller
   public function subMenu()
   {
     $info['title']         = 'Management Sub Menu';
-    $info['user']          = $this->auth->getUserSession();
+    $info['user']          = $this->auth_model->getUserSession();
 
     // SEARCHING
     if ($this->input->post('search', true)) {
@@ -156,7 +156,7 @@ class Menu extends CI_Controller
         */
 
     $config['base_url']     = base_url() . 'menu/submenu';
-    $config['total_rows']   = $this->menu->getSubMenuCountPage();
+    $config['total_rows']   = $this->menu_model->getSubMenuCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5; // set this num links to give limit show page, 5 means [1,2,3,4,5,next]
 
@@ -191,7 +191,7 @@ class Menu extends CI_Controller
     $this->pagination->initialize($config);
 
     $info['start']      = $this->uri->segment(3);
-    $info['submenu']    = $this->menu->getAllSubMenu($config['per_page'], $info['start'], $info['keyword']);
+    $info['submenu']    = $this->menu_model->getAllSubMenu($config['per_page'], $info['start'], $info['keyword']);
 
     $info['pagination'] =  $this->pagination->create_links();
 
@@ -201,9 +201,9 @@ class Menu extends CI_Controller
   public function addSubMenu()
   {
     $info['title']         = 'Add New Management Sub Menu';
-    $info['user']          = $this->auth->getUserSession();
-    $info['submenu']    = $this->menu->getAllSubMenu_();
-    $info['menu']        = $this->menu->getAllMenu_();
+    $info['user']          = $this->auth_model->getUserSession();
+    $info['submenu']    = $this->menu_model->getAllSubMenu_();
+    $info['menu']        = $this->menu_model->getAllMenu_();
 
     $this->form_validation->set_rules('name', 'submenu name', 'trim|required|min_length[3]');
     $this->form_validation->set_rules('menu_opt', 'menu option', 'trim|required');
@@ -224,7 +224,7 @@ class Menu extends CI_Controller
     if ($this->form_validation->run() == FALSE) {
       renderTemplate('submenus/add_submenu', $info);
     } else {
-      $this->menu->insertSubMenu($data);
+      $this->menu_model->insertSubMenu($data);
       $this->session->set_flashdata('success', 'Added !');
       redirect('menu/submenu', 'refresh');
     }
@@ -233,9 +233,9 @@ class Menu extends CI_Controller
   public function editSubMenu($id)
   {
     $info['title']      = 'Edit Management Sub Menu';
-    $info['user']       = $this->auth->getUserSession();
-    $info['submenu']    = $this->menu->getSubMenuById($id);
-    $info['menu']       = $this->menu->getAllMenu_();
+    $info['user']       = $this->auth_model->getUserSession();
+    $info['submenu']    = $this->menu_model->getSubMenuById($id);
+    $info['menu']       = $this->menu_model->getAllMenu_();
 
     $this->form_validation->set_rules('menu_opt', 'menu option', 'trim|required');
     $this->form_validation->set_rules('name', 'submenu name', 'trim|required|min_length[3]');
@@ -262,7 +262,7 @@ class Menu extends CI_Controller
     if ($this->form_validation->run() == FALSE) {
       renderTemplate('submenus/edit_submenu', $info);
     } else {
-      $this->menu->updateSubMenu($data);
+      $this->menu_model->updateSubMenu($data);
       $this->session->set_flashdata('success', 'Edited !');
       redirect('menu/submenu', 'refresh');
     }
@@ -270,7 +270,7 @@ class Menu extends CI_Controller
 
   public function deleteSubMenu($id)
   {
-    $this->menu->deleteSubMenu($id);
+    $this->menu_model->deleteSubMenu($id);
     $this->session->set_flashdata('success', 'Deleted !');
     redirect('menu/submenu', 'refresh');
   }

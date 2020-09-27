@@ -15,8 +15,8 @@ class Post extends CI_Controller
   public function index()
   {
     $info['title'] = "Post";
-    $info['user'] = $this->auth->getUserSession();
-    $info['profile'] = $this->profile->getProfileById(1);
+    $info['user'] = $this->auth_model->getUserSession();
+    $info['profile'] = $this->profile_model->getProfileById(1);
 
     $this->load->view('back-templates/header', $info);
     $this->load->view('back-templates/sidebar', $info);
@@ -27,7 +27,7 @@ class Post extends CI_Controller
 
   public function getPostDatatables()
   {
-    $list = $this->post->getPostDatatables();
+    $list = $this->post_model->getPostDatatables();
     $data = array();
     $no = @$_POST['start'];
     foreach ($list as $item) {
@@ -63,8 +63,8 @@ class Post extends CI_Controller
     }
     $output = array(
       "draw" => @$_POST['draw'],
-      "recordsTotal" => $this->post->count_all(),
-      "recordsFiltered" => $this->post->count_filtered(),
+      "recordsTotal" => $this->post_model->count_all(),
+      "recordsFiltered" => $this->post_model->count_filtered(),
       "data" => $data,
     );
 
@@ -96,9 +96,9 @@ class Post extends CI_Controller
   public function addpost()
   {
     $info['title'] = "Add New Post";
-    $info['user'] = $this->auth->getUserSession();
-    $info['category'] = $this->category->getCategory();
-    $getUser  = $this->auth->checkUser($this->session->userdata('email'));
+    $info['user'] = $this->auth_model->getUserSession();
+    $info['category'] = $this->category_model->getCategory();
+    $getUser  = $this->auth_model->checkUser($this->session->userdata('email'));
     date_default_timezone_set('Asia/Jakarta');
 
     $this->form_validation->set_rules('title', 'post title', 'trim|required|min_length[5]|is_unique[blog.title]', [
@@ -128,7 +128,7 @@ class Post extends CI_Controller
           'active' => $this->input->post('active_opt')
         ];
 
-        $this->post->insert($data);
+        $this->post_model->insert($data);
 
         $this->session->set_flashdata('success', 'The article has been saved and ready to post!');
         redirect('blog-post-menu ', 'refresh');
@@ -142,9 +142,9 @@ class Post extends CI_Controller
   public function editPost($id)
   {
     $info['title'] = 'Edit Post';
-    $info['user'] = $this->auth->getUserSession();
-    $info['data'] = $this->post->getPostById($id);
-    $info['category'] = $this->category->getCategory();
+    $info['user'] = $this->auth_model->getUserSession();
+    $info['data'] = $this->post_model->getPostById($id);
+    $info['category'] = $this->category_model->getCategory();
     date_default_timezone_set('Asia/Jakarta');
 
     $this->form_validation->set_rules('title', 'post title', 'trim|required|min_length[5]');
@@ -184,7 +184,7 @@ class Post extends CI_Controller
     if ($this->form_validation->run() == FALSE) {
       renderTemplate('posts/edit-post', $info);
     } else {
-      $this->post->update($id, $data);
+      $this->post_model->update($id, $data);
 
       $this->session->set_flashdata('success', 'Your post has been updated !');
       redirect('blog-post-menu', 'refresh');
@@ -204,7 +204,7 @@ class Post extends CI_Controller
       }
     }
 
-    $delete = $this->post->delete($id);
+    $delete = $this->post_model->delete($id);
 
     if ($delete > 0) {
       $response['status'] = true;
@@ -225,7 +225,7 @@ class Post extends CI_Controller
       'pending' => 0
     ];
 
-    $send = $this->post->send($id, $data);
+    $send = $this->post_model->send($id, $data);
 
     if ($send > 0) {
       $response['status'] = true;

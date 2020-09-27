@@ -46,11 +46,13 @@
   <script src="<?php echo base_url(); ?>back-assets/js/sb-admin-2.min.js"></script>
 
   <!-- Custom Script -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.1/dist/sweetalert2.all.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.1/dist/sweetalert2.all.min.js"></script> -->
+  <script src="<?php echo base_url(); ?>back-assets/sweet_alert/sweetalert2.all.min.js"></script>
 
   <script src="<?php echo base_url(); ?>back-assets/js/bootstrap-datepicker.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> -->
+  <script src="<?php echo base_url(); ?>back-assets/js/moment.min.js"></script>
   <script src="<?php echo base_url(); ?>back-assets/js/detail-time-order.js"></script>
   <script src="<?php echo base_url(); ?>back-assets/js/select2.full.min.js"></script>
   <!-- <script src="<?php echo base_url(); ?>back-assets/js/message-alert.js"></script>
@@ -60,11 +62,14 @@
   <script src="<?php echo base_url(); ?>back-assets/datatables/datatables.min.js"></script>
 
   <!-- Validator -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
+  <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script> -->
+  <script src="<?php echo base_url(); ?>back-assets/jquery-validation-1.19.2/dist/jquery.validate.min.js"></script>
+  <script src="<?php echo base_url(); ?>back-assets/jquery-validation-1.19.2/dist/additional-methods.min.js"></script>
 
   <!-- CKEditor -->
-  <script src="https://cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
+  <!-- <script src="https://cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script> -->
+  <script src="<?php echo base_url(); ?>back-assets/ckeditor/ckeditor.js"></script>
 
   <!-- Dropzone Js -->
   <script type="text/javascript" src="<?php echo base_url() . 'back-assets/dropzone/min/dropzone.min.js'; ?>"></script>

@@ -137,13 +137,13 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array(
-  'Admin_model' => 'admin',
-  'Auth_model' => 'auth',
-  'User_model' => 'user',
-  'Menu_model' => 'menu',
-  'Profile_model' => 'profile',
-  'Category_model' => 'category',
-  'Post_model' => 'post',
-  'Comment_model' => 'comment',
-  'Message_model' => 'message'
+  'Admin_model' => 'admin_model',
+  'Auth_model' => 'auth_model',
+  'User_model' => 'user_model',
+  'Menu_model' => 'menu_model',
+  'Profile_model' => 'profile_model',
+  'Category_model' => 'category_model',
+  'Post_model' => 'post_model',
+  'Comment_model' => 'comment_model',
+  'Message_model' => 'message_model'
 );

@@ -13,8 +13,8 @@ class Category extends CI_Controller
   public function index()
   {
     $info['title'] = "Category";
-    $info['user'] = $this->auth->getUserSession();
-    $info['profile'] = $this->profile->getProfileById(1);
+    $info['user'] = $this->auth_model->getUserSession();
+    $info['profile'] = $this->profile_model->getProfileById(1);
 
     $this->load->view('back-templates/header', $info);
     $this->load->view('back-templates/sidebar', $info);
@@ -26,7 +26,7 @@ class Category extends CI_Controller
 
   public function getCategoryDatatables()
   {
-    $list = $this->category->getCategoryDatatables();
+    $list = $this->category_model->getCategoryDatatables();
     $data = array();
     $no = @$_POST['start'];
     foreach ($list as $item) {
@@ -53,8 +53,8 @@ class Category extends CI_Controller
     }
     $output = array(
       "draw" => @$_POST['draw'],
-      "recordsTotal" => $this->category->count_all(),
-      "recordsFiltered" => $this->category->count_filtered(),
+      "recordsTotal" => $this->category_model->count_all(),
+      "recordsFiltered" => $this->category_model->count_filtered(),
       "data" => $data,
     );
 
@@ -64,14 +64,14 @@ class Category extends CI_Controller
 
   public function category_data()
   {
-    $data = $this->category->getCategory();
+    $data = $this->category_model->getCategory();
     echo json_encode($data);
   }
 
   public function addCategory()
   {
     $response = array();
-    $info['user'] = $this->auth->getUserSession();
+    $info['user'] = $this->auth_model->getUserSession();
 
     if ($this->input->post('category_visible', true) != null) {
       $status = 'visible'; // if condition not null it means checked
@@ -85,7 +85,7 @@ class Category extends CI_Controller
       'visible' => $status
     ];
 
-    $insert = $this->category->insert($data);
+    $insert = $this->category_model->insert($data);
 
     if ($insert > 0) {
       $response['status'] = 'true';
@@ -100,7 +100,7 @@ class Category extends CI_Controller
 
   public function editCategory($id)
   {
-    $data = $this->category->getCategoryById($id);
+    $data = $this->category_model->getCategoryById($id);
     echo json_encode($data);
   }
 
@@ -122,7 +122,7 @@ class Category extends CI_Controller
       'visible' => $status
     ];
 
-    $update = $this->category->update($id, $data);
+    $update = $this->category_model->update($id, $data);
 
     if ($update > 0) {
       $response['status'] = 'true';
@@ -138,8 +138,8 @@ class Category extends CI_Controller
   public function edit($id)
   {
     $info['title']     = 'Edit Category';
-    $info['user']      = $this->auth->getUserSession();
-    $info['detail']    = $this->category->getCategoryById($id);
+    $info['user']      = $this->auth_model->getUserSession();
+    $info['detail']    = $this->category_model->getCategoryById($id);
 
     $this->form_validation->set_rules('name', 'category name', 'trim|required|min_length[3]');
 
@@ -158,7 +158,7 @@ class Category extends CI_Controller
     if ($this->form_validation->run() == false) {
       renderTemplate('categories/edit-category', $info);
     } else {
-      $this->category->update($id, $file);
+      $this->category_model->update($id, $file);
       $this->session->set_flashdata('success', 'Data category has been updated !');
       redirect('category', 'refresh');
     }
@@ -166,7 +166,7 @@ class Category extends CI_Controller
 
   public function delete($id)
   {
-    $this->category->delete($id);
+    $this->category_model->delete($id);
     $this->session->set_flashdata('success', 'Data category has been deleted !');
     redirect('category', 'refresh');
   }

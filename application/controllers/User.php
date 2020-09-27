@@ -16,7 +16,7 @@ class User extends CI_Controller
   public function index()
   {
     $info['title']     = 'User Page';
-    $info['user']    = $this->auth->getUserSession();
+    $info['user']    = $this->auth_model->getUserSession();
 
     renderTemplate('users/index', $info);
   }
@@ -24,7 +24,7 @@ class User extends CI_Controller
   public function edit()
   {
     $info['title']     = "Edit User Page";
-    $info['user']    = $this->auth->getUserSession();
+    $info['user']    = $this->auth_model->getUserSession();
 
     $this->form_validation->set_rules('name', 'full name', 'trim|required|min_length[5]');
 
@@ -56,7 +56,7 @@ class User extends CI_Controller
     if ($this->form_validation->run() == FALSE) {
       renderTemplate('users/edit-user', $info);
     } else {
-      $this->user->updateUser($data);
+      $this->user_model->updateUser($data);
       $this->session->set_flashdata('success', 'Updated !');
       redirect('user', 'refresh');
     }
@@ -65,7 +65,7 @@ class User extends CI_Controller
   public function changePassword()
   {
     $info['title']     = "Change Password";
-    $info['user']    = $this->auth->getUserSession();
+    $info['user']    = $this->auth_model->getUserSession();
 
     $this->form_validation->set_rules('oldpass', 'current password', 'trim|required|min_length[6]');
     $this->form_validation->set_rules('newpass', 'new password', 'trim|required|min_length[6]|matches[repass]');
@@ -91,7 +91,7 @@ class User extends CI_Controller
             'password' => $hash_pass
           ];
 
-          $this->user->updatePassword($data);
+          $this->user_model->updatePassword($data);
           $this->session->set_flashdata('success', 'Updated !');
           redirect('user/changepassword', 'refresh');
         }

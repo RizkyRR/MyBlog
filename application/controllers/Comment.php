@@ -16,7 +16,7 @@ class Comment extends CI_Controller
   public function index()
   {
     $info['title'] = "Comment";
-    $info['user'] = $this->auth->getUserSession();
+    $info['user'] = $this->auth_model->getUserSession();
 
     // SEARCHING
     if ($this->input->post('search', true)) {
@@ -33,7 +33,7 @@ class Comment extends CI_Controller
 
     // PAGINATION
     $config['base_url']     = base_url() . 'comment/index';
-    $config['total_rows']   = $this->comment->getCommentCountPage();
+    $config['total_rows']   = $this->comment_model->getCommentCountPage();
     $config['per_page']     = 10;
     $config['num_links']    = 5;
 
@@ -68,7 +68,7 @@ class Comment extends CI_Controller
     $this->pagination->initialize($config);
 
     $info['start']   = $this->uri->segment(3);
-    $info['comment']    = $this->comment->getAllComment($config['per_page'], $info['start'], $info['keyword']);
+    $info['comment']    = $this->comment_model->getAllComment($config['per_page'], $info['start'], $info['keyword']);
 
     $info['pagination'] = $this->pagination->create_links();
 
@@ -84,8 +84,8 @@ class Comment extends CI_Controller
   public function editComment($id)
   {
     $info['title'] = 'Edit Comment';
-    $info['user'] = $this->auth->getUserSession();
-    $info['data'] = $this->comment->getCommentById($id);
+    $info['user'] = $this->auth_model->getUserSession();
+    $info['data'] = $this->comment_model->getCommentById($id);
 
     $this->form_validation->set_rules('is_hide', 'hide comment', 'trim');
 
@@ -102,7 +102,7 @@ class Comment extends CI_Controller
     if ($this->form_validation->run() == FALSE) {
       renderTemplate('comments/edit-comment', $info);
     } else {
-      $this->comment->update($id, $data);
+      $this->comment_model->update($id, $data);
       $this->session->set_flashdata('success', 'Your comment data has been updated !');
       redirect('comment', 'refresh');
     }
@@ -110,19 +110,19 @@ class Comment extends CI_Controller
 
   public function comment_count_data()
   {
-    $data = $this->comment->getNewCommentCount();
+    $data = $this->comment_model->getNewCommentCount();
     echo json_encode($data);
   }
 
   public function comment_notif_data()
   {
-    $data = $this->comment->getNewCommentInfo();
+    $data = $this->comment_model->getNewCommentInfo();
     echo json_encode($data);
   }
 
   public function deleteComment($id)
   {
-    $this->comment->delete($id);
+    $this->comment_model->delete($id);
     $this->session->set_flashdata('success', 'Data comment has been deleted !');
     redirect('comment', 'refresh');
   }
@@ -141,7 +141,7 @@ class Comment extends CI_Controller
       'is_hide' => $status
     ];
 
-    $this->comment->update($id, $file);
+    $this->comment_model->update($id, $file);
     $this->session->set_flashdata('success', 'Updated !');
   } */
 }

@@ -13,6 +13,7 @@ class Category_model extends CI_Model
   {
     $this->db->select('*');
     $this->db->from('category');
+    $this->db->where('category.category_id > 0');
 
     $i = 0;
     foreach ($this->column_search as $category) { // loop column

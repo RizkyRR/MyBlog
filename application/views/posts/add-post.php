@@ -36,9 +36,9 @@
             <small class="form-text text-danger"><?= form_error('title'); ?></small>
           </div>
 
-          <div class="form-group">
+          <div class="row form-group col-md-4">
             <label for="category_opt">Category</label>
-            <select class="form-control col-md-3" name="category_opt" id="category_opt">
+            <select class="form-control" name="category_opt" id="category_opt">
               <option value="">Choose Category</option>
 
               <?php foreach ($category as $val) : ?>

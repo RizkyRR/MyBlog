@@ -3,7 +3,7 @@ function renderTemplate($page = null, $data = array())
 {
   $ci = &get_instance();
 
-  $data['profile'] = $ci->profile->getProfileById(1);
+  $data['profile'] = $ci->profile_model->getProfileById(1);
 
   $ci->load->view('back-templates/header', $data);
   $ci->load->view('back-templates/sidebar', $data);
@@ -16,7 +16,7 @@ function renderTemplateDetail($page = null, $p_detail = null, $data = array())
 {
   $ci = &get_instance();
 
-  $data['profile'] = $ci->profile->getProfileById(1);
+  $data['profile'] = $ci->profile_model->getProfileById(1);
 
   $ci->load->view('back-templates/header', $data);
   $ci->load->view('back-templates/sidebar', $data);
@@ -30,8 +30,8 @@ function renderFrontTemplate($page = null, $data = array())
 {
   $ci = &get_instance();
 
-  $data['profile'] = $ci->profile->getProfileById(1);
-  $data['link_profile'] = $ci->profile->getLinkProfile();
+  $data['profile'] = $ci->profile_model->getProfileById(1);
+  $data['link_profile'] = $ci->profile_model->getLinkProfile();
 
   $ci->load->view('front-templates/header', $data);
   $ci->load->view('front-templates/navbar', $data);

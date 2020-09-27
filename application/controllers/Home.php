@@ -12,7 +12,7 @@ class Home extends CI_Controller
 
     // PAGINATION
     $config['base_url']     = base_url() . 'home/index';
-    $config['total_rows']   = $this->post->getShowPostCountPage();
+    $config['total_rows']   = $this->post_model->getShowPostCountPage();
     $config['per_page']     = 5;
     // $config['num_links']    = 5;
 
@@ -33,7 +33,7 @@ class Home extends CI_Controller
     $this->pagination->initialize($config);
 
     $info['start']   = $this->uri->segment(3);
-    $info['post']    = $this->post->getShowAllPost($config['per_page'], $info['start']);
+    $info['post']    = $this->post_model->getShowAllPost($config['per_page'], $info['start']);
 
     $info['pagination'] = $this->pagination->create_links();
 
@@ -43,7 +43,7 @@ class Home extends CI_Controller
   // Read Post 
   private function view_count($b_slug)
   {
-    $slug = $this->post->getPostBySlug($b_slug);
+    $slug = $this->post_model->getPostBySlug($b_slug);
     $check_visitor = $this->input->cookie(urldecode($b_slug), false);
     $ip = $this->input->ip_address();
 
@@ -63,7 +63,7 @@ class Home extends CI_Controller
         'blog_views' => $getPrevViews + 1
       ];
 
-      $this->post->updateViewCounter(urldecode($b_slug), $data);
+      $this->post_model->updateViewCounter(urldecode($b_slug), $data);
     }
   }
 
@@ -73,14 +73,14 @@ class Home extends CI_Controller
       redirect('home', 'refresh');
     }
 
-    $info['read'] = $this->post->getReadPost($c_slug, $b_slug);
+    $info['read'] = $this->post_model->getReadPost($c_slug, $b_slug);
     $info['title'] = $info['read']['title'];
 
     $data = [
       'blog_views' => $info['read']['blog_views'] + 1
     ];
 
-    // $this->post->updateBySlug($b_slug, $data);
+    // $this->post_model->updateBySlug($b_slug, $data);
 
     $this->view_count($b_slug);
 
