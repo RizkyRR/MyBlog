@@ -91,9 +91,9 @@ class Message extends CI_Controller
     // https://www.rumahweb.com/journal/cara-setting-smtp-codeigniter/
     $config = [
       'protocol'   => 'smtp',
-      'smtp_host'  => 'ssl://mail.rizkyrahmadianto.com',
-      'smtp_user'  => 'admin@rizkyrahmadianto.com',
-      'smtp_pass'  => 'a3kPcWshdjSRDFH',
+      'smtp_host'  => 'ssl://',
+      'smtp_user'  => 'admin@email.com',
+      'smtp_pass'  => 'password',
       'smtp_port'  => 465,
       'mailtype'  => 'html',
       'charset'  => 'utf-8',
@@ -105,7 +105,7 @@ class Message extends CI_Controller
     $this->email->initialize($config);
 
     // Email dan nama pengirim
-    $this->email->from('admin@rizkyrahmadianto.com', 'rizkyrahmadianto.com');
+    $this->email->from('admin@email.com', 'email.com');
 
     // Email penerima
     $this->email->to($replyTo); // Ganti dengan email tujuan
