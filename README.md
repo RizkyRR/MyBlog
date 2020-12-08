@@ -7,5 +7,6 @@ Therefore, I am posting this project on my github for all of you to use. Please 
 2. Database files are located in the "_database" folder
 3. Don't forget to configure in the "application / config" folder
 4. For email config, it can be found in the Message and Auth controller files. Change according to your needs.
+5. To access the login page, you can enter the email admin@admin.com and the password is admin123
 
 # JUST IT, HOPE YOU ENJOY IT!
